@@ -10,7 +10,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import modelo.Endereco;
+import modelo.Filial;
 import modelo.Funcionario;
+import service.EnderecoService;
+import service.FilialService;
 import service.FuncionarioService;
 
 
@@ -20,8 +24,19 @@ public class FuncionarioBean {
 	@EJB
 	private FuncionarioService funcionarioService;
 	
+	@EJB
+	private EnderecoService enderecoService;
+	
+	@EJB
+	private FilialService filialService;
+	
 	private Funcionario funcionario = new Funcionario();
+	private Endereco endereco = new Endereco();
+	
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+	
+	private List<Filial> filiais = new ArrayList<Filial>();
+	private Long idFilial = 0L;
 	
 	private Boolean gravar = true; 
 	private String texto;
@@ -37,17 +52,29 @@ public class FuncionarioBean {
 	}
 	
 	@PostConstruct
-	private void inicializar() {
-		atualizarLista();
+	public void iniciar() {
+		listarFuncionarios();
+		filiais = filialService.listAll();
 	}
 	
 	public void gravar() {
+		
+		endereco = enderecoService.mergeEndereco(endereco); // o metodo merge foi utilizado para deixar o objeto gerenciado novamente
+	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Endereco gravada com Sucesso!"));
+	    
+	    funcionario.setEndereco(endereco);
+	    funcionarioService.create(funcionario);
+	    
+	    Filial f = filialService.obtemPorId(idFilial);
+		funcionario.setFilial(f);
 		funcionarioService.create(funcionario);
-		FacesContext.getCurrentInstance().
-			addMessage("msg1", new FacesMessage("Funcionário gravado com Sucesso!"));
-		funcionario = new Funcionario();
-		atualizarLista();
-		gravar = true;
+	    
+	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Funcionario gravada com Sucesso!"));
+	    funcionario = new Funcionario();
+	    endereco = new Endereco();
+	    atualizarLista();
+	    listarFuncionarios();
+		idFilial = 0L;
 	}
 	
 	public void atualizar() {
@@ -71,6 +98,34 @@ public class FuncionarioBean {
 		gravar = false;
 	}
 	
+	public void listarFuncionarios() {
+		funcionarios = funcionarioService.listAll(); 
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Filial> getFiliais() {
+		return filiais;
+	}
+
+	public void setFiliais(List<Filial> filiais) {
+		this.filiais = filiais;
+	}
+
+	public Long getIdFilial() {
+		return idFilial;
+	}
+
+	public void setIdFilial(Long idfilial) {
+		this.idFilial = idfilial;
+	}
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}

@@ -19,6 +19,7 @@ public class Filial {
 	
 	public Filial() {}
 	
+	
 	public String getNome() {
 		return nome;
 	}

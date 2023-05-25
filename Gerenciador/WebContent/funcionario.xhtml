@@ -16,11 +16,34 @@
 			<h:inputText value="#{funcionarioBean.funcionario.cpf}" />
 			<h:outputLabel value="Salário:" />
 			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+			
+			<h:outputLabel value="Filial:" for="filial"/>
+			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
+			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
+			<f:selectItems value="#{funcionarioBean.filiais}" var="filialAtual"
+					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Informações" />
+			<h:outputLabel value=" do Endereço" />
+			<h:outputLabel value="Rua:" />
+			<h:inputText value="#{funcionarioBean.endereco.rua}" />
+			<h:outputLabel value="Numero:" />
+			<h:inputText value="#{funcionarioBean.endereco.numero}" />
+			<h:outputLabel value="Bairro:" />
+			<h:inputText value="#{funcionarioBean.endereco.bairro}" />
+			<h:outputLabel value="Cidade:" />
+			<h:inputText value="#{funcionarioBean.endereco.cidade}" />
+			<h:outputLabel value="CEP:" />
+			<h:inputText value="#{funcionarioBean.endereco.cep}" />
+					
+			
+					
 			<h:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
 				rendered="#{funcionarioBean.gravar}" />
 			<h:commandButton action="#{funcionarioBean.atualizar()}"
 				value="Atualizar" rendered="#{!funcionarioBean.gravar}" />
-
+			
 		</h:panelGrid>
 	</h:form>
 

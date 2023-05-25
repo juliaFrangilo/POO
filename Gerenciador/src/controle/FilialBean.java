@@ -10,8 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import modelo.Endereco;
 import modelo.Filial;
-import modelo.Funcionario;
+import service.EnderecoService;
 import service.FilialService;
 
 @ViewScoped
@@ -20,8 +21,12 @@ public class FilialBean {
 	
     @EJB
 	private FilialService filialService;
+    
+    @EJB
+	private EnderecoService enderecoService;
 	
 	private Filial filial = new Filial();
+	private Endereco endereco = new Endereco();
 	private List<Filial> filiais = new ArrayList<Filial>();
 	
 	
@@ -39,14 +44,18 @@ public class FilialBean {
 		atualizarLista();
 	}
 	
-	
 	public void gravar() {
-		filialService.create(filial);
-		FacesContext.getCurrentInstance().
-			addMessage("msg1", new FacesMessage("Filial gravada com Sucesso!"));
-		filial= new Filial();
-		atualizarLista();
-		gravar = true;
+		endereco = enderecoService.mergeEndereco(endereco); // Utilize merge para tornar o objeto gerenciado
+	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Endereco gravada com Sucesso!"));
+	    
+	    filial.setEndereco(endereco);
+	    filialService.create(filial);
+	    
+	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Filial gravada com Sucesso!"));
+	    filial = new Filial();
+	    endereco = new Endereco();
+	    atualizarLista();
+	    gravar = true;
 	}
 	
 	public void atualizar() {
@@ -94,5 +103,14 @@ public class FilialBean {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 	
 }

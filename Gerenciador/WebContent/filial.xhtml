@@ -1,11 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head> 
-<body> 
+<h:head></h:head>
+<body>
+	<h:messages />
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{filialBean.filial.nome}" />
+			<h:outputLabel value="CNPJ:" />
+			<h:inputText value="#{filialBean.filial.cnpj}" />
+			<h:outputLabel value="Rua:" />
+			<h:inputText value="#{filialBean.endereco.rua}" />
+			<h:outputLabel value="Numero:" />
+			<h:inputText value="#{filialBean.endereco.numero}" />
+			<h:outputLabel value="Bairro:" />
+			<h:inputText value="#{filialBean.endereco.bairro}" />
+			<h:outputLabel value="Cidade:" />
+			<h:inputText value="#{filialBean.endereco.cidade}" />
+			<h:outputLabel value="CEP:" />
+			<h:inputText value="#{filialBean.endereco.cep}" />
+			<h:commandButton action="#{filialBean.gravar()}" value="Gravar"
+				rendered="#{filialBean.gravar}" />
+			<h:commandButton action="#{filialBean.atualizar()}"
+				value="Atualizar" rendered="#{!filialBean.gravar}" />
 
-</body> 
+		</h:panelGrid>
+	</h:form>
+
+</body>
 </html>
