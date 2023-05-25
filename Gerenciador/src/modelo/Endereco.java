@@ -1,9 +1,14 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Endereco {
+	
+	@Id @GeneratedValue
+	private Long id;
 	
 	private String rua;
 	private Integer numero;
@@ -42,6 +47,14 @@ public class Endereco {
 	}
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

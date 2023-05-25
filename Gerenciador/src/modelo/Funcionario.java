@@ -13,7 +13,6 @@ public class Funcionario {
 	private Long id;
 	
 	private String nome;
-	
 	private Integer idade;
 	private String cpf;
 	private double salario;
@@ -23,6 +22,12 @@ public class Funcionario {
 	
 	@OneToOne
 	private Endereco endereco;
+	
+	
+	
+	public Funcionario () {
+		
+	}
 	
 	public Long getId() {
 		return id;
@@ -80,5 +85,6 @@ public class Funcionario {
 		this.endereco = endereco;
 	}
 
+	
 
 }

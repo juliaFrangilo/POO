@@ -18,25 +18,31 @@ public class Filial {
 	private Endereco endereco;
 	
 	public Filial() {}
-
+	
 	public String getNome() {
 		return nome;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public String getCnpj() {
 		return cnpj;
 	}

@@ -5,7 +5,61 @@
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head></h:head> 
-<body> 
+<body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{funcionarioBean.funcionario.nome}" />
+			<h:outputLabel value="Idade:" />
+			<h:inputText value="#{funcionarioBean.funcionario.idade}" />
+			<h:outputLabel value="CPF:" />
+			<h:inputText value="#{funcionarioBean.funcionario.cpf}" />
+			<h:outputLabel value="Salário:" />
+			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+			<h:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
+				rendered="#{funcionarioBean.gravar}" />
+			<h:commandButton action="#{funcionarioBean.atualizar()}"
+				value="Atualizar" rendered="#{!funcionarioBean.gravar}" />
+
+		</h:panelGrid>
+	</h:form>
+
+	<h:form>
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{funcionarioBean.texto}" />
+			<h:commandButton action="#{funcionrioBean.pesquisar()}"
+				value="Pesquisar" />
+		</h:panelGrid>
+		
+		<h:dataTable value="#{funcionarioBean.funcionario}" var="pacAtual"
+			border="1">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{pacAtual.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Idade</f:facet>
+				<h:outputText value="#{pacAtual.idade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CPF</f:facet>
+				<h:outputText value="#{pacAtual.cpf}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Salário</f:facet>
+				<h:outputText value="#{pacAtual.salario}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandButton action="#{funcionarioBean.carregarFuncionario(pacAtual)}"
+					value="Editar" />
+				<h:commandButton action="#{funcionarioBean.excluir(pacAtual)}"
+					value="Excluir" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
 
 </body> 
 </html>
