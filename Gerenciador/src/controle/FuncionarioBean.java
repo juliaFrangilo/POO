@@ -63,7 +63,6 @@ public class FuncionarioBean {
 	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Endereco gravada com Sucesso!"));
 	    
 	    funcionario.setEndereco(endereco);
-	    funcionarioService.create(funcionario);
 	    
 	    Filial f = filialService.obtemPorId(idFilial);
 		funcionario.setFilial(f);
