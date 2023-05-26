@@ -13,6 +13,8 @@
 			<h:inputText value="#{filialBean.filial.nome}" />
 			<h:outputLabel value="CNPJ:" />
 			<h:inputText value="#{filialBean.filial.cnpj}" />
+			<h:outputLabel value="Informações" />
+			<h:outputLabel value=" do Endereço" />
 			<h:outputLabel value="Rua:" />
 			<h:inputText value="#{filialBean.endereco.rua}" />
 			<h:outputLabel value="Numero:" />
@@ -44,7 +46,7 @@
 				<h:outputText value="#{filialAtual.endereco.rua}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Número]</f:facet>
+				<f:facet name="header">Número</f:facet>
 				<h:outputText value="#{filialAtual.endereco.numero}" />
 			</h:column>
 			<h:column>
@@ -58,6 +60,10 @@
 			<h:column>
 				<f:facet name="header">CEP</f:facet>
 				<h:outputText value="#{filialAtual.endereco.cidade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Funcionarios</f:facet>
+				<h:outputText value="#{filialAtual.totalFuncionarios}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>

@@ -66,6 +66,7 @@ public class FuncionarioBean {
 	    funcionario.setEndereco(endereco);
 		
 		Filial f = filialService.obtemPorId(idFilial);
+		f.setTotalFuncionarios(funcionarioService.listarTotalFuncionarioPorFilial(idFilial));
 		funcionario.setFilial(f);
 		funcionarioService.create(funcionario);
 		

@@ -25,6 +25,9 @@ public class FilialBean {
     
     @EJB
 	private EnderecoService enderecoService;
+
+    @EJB
+	private FuncionarioService funcionarioService;
 	
 	private Filial filial = new Filial();
 	private Endereco endereco = new Endereco();
@@ -34,8 +37,6 @@ public class FilialBean {
 	private Boolean gravar = true; 
 	private String texto;
 	private Long totalFuncionarios;
-  
-	
 
 	
 	public Long getTotalFuncionarios() {

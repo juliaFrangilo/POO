@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Filial {
@@ -16,6 +17,9 @@ public class Filial {
 	
 	@OneToOne
 	private Endereco endereco;
+	
+	@Transient
+	private Long totalFuncionarios;
 	
 	public Filial() {}
 	
@@ -49,5 +53,13 @@ public class Filial {
 	}
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+	
+	public Long getTotalFuncionarios() {
+		return totalFuncionarios;
+	}
+
+	public void setTotalFuncionarios(Long totalFuncionarios) {
+		this.totalFuncionarios = totalFuncionarios;
 	}
 }
