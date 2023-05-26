@@ -41,13 +41,12 @@ public class FuncionarioBean {
 	
 	private Boolean gravar = true; 
 	private String texto;
-	
-	
+
 	
 	public void pesquisar() {
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
 	}
-	
+
 	private void atualizarLista() {
 		funcionarios = funcionarioService.listAll();
 	}

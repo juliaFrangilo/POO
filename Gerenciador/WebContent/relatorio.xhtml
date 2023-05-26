@@ -6,6 +6,17 @@
 
 <h:head></h:head> 
 <body> 
+	<h:messages />
+	<h:form>
+	
+	    <h:outputLabel value="Emissão de Relatório" />
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Valor Inicial" />
+			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+			<h:outputLabel value="Valor Final" />
+			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+		</h:panelGrid>
+	</h:form>
 
 </body> 
 </html>

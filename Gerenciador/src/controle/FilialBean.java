@@ -14,6 +14,7 @@ import modelo.Endereco;
 import modelo.Filial;
 import service.EnderecoService;
 import service.FilialService;
+import service.FuncionarioService;
 
 @ViewScoped
 @ManagedBean
@@ -32,10 +33,19 @@ public class FilialBean {
 	
 	private Boolean gravar = true; 
 	private String texto;
-
+	private Long totalFuncionarios;
+  
+	
 
 	
-	
+	public Long getTotalFuncionarios() {
+		return totalFuncionarios;
+	}
+
+	public void setTotalFuncionarios(Long totalFuncionarios) {
+		this.totalFuncionarios = totalFuncionarios;
+	}
+
 	private void atualizarLista() {
 		filiais = filialService.listAll();
 	}

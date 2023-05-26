@@ -12,6 +12,7 @@ import modelo.Funcionario;
 
 
 
+
 @Stateless
 public class FuncionarioService extends GenericService<Funcionario>{
 	
@@ -33,6 +34,23 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		
 		
 		List<Funcionario> resultado = getEntityManager().createQuery(cQuery).getResultList();
+		
+		return resultado;
+		
+	}
+	
+	public Long listarTotalFuncionarioPorFilial(Long idFilial){
+		final CriteriaBuilder cBuilder = 
+				getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Long> cQuery = 
+				cBuilder.createQuery(Long.class);
+		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
+		
+		cQuery.select(cBuilder.count(rootFuncionario));
+		cQuery.where(cBuilder.equal(rootFuncionario.get("Filial").get("id"), idFilial));
+		
+		Long resultado = 
+				getEntityManager().createQuery(cQuery).getSingleResult();
 		
 		return resultado;
 		

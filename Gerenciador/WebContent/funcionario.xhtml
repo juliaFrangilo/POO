@@ -51,7 +51,7 @@
 		<h:panelGrid columns="3">
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{funcionarioBean.texto}" />
-			<h:commandButton action="#{funcionrioBean.pesquisar()}"
+			<h:commandButton action="#{funcionarioBean.pesquisar()}"
 				value="Pesquisar" />
 		</h:panelGrid>
 		
@@ -93,6 +93,14 @@
 			<h:column>
 				<f:facet name="header">CEP</f:facet>
 				<h:outputText value="#{funcAtual.endereco.cidade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome Filial</f:facet>
+				<h:outputText value="#{funcAtual.filial.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cidade Filial</f:facet>
+				<h:outputText value="#{funcAtual.filial.endereco.cidade}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>

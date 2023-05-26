@@ -10,5 +10,5 @@ public class FilialService extends GenericService<Filial> {
 	public FilialService() {
 		super(Filial.class);
 	}
-
+     
 }
