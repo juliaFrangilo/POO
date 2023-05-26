@@ -33,6 +33,7 @@ public class FilialBean {
 	private Boolean gravar = true; 
 	private String texto;
 
+
 	
 	
 	private void atualizarLista() {

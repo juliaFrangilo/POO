@@ -6,6 +6,7 @@
 
 <h:head></h:head> 
 <body>
+<h:messages />
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
@@ -15,8 +16,7 @@
 			<h:outputLabel value="CPF:" />
 			<h:inputText value="#{funcionarioBean.funcionario.cpf}" />
 			<h:outputLabel value="Salário:" />
-			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
-			
+		    <h:inputText value="#{funcionarioBean.funcionario.salario}"/>
 			<h:outputLabel value="Filial:" for="filial"/>
 			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
@@ -55,29 +55,50 @@
 				value="Pesquisar" />
 		</h:panelGrid>
 		
-		<h:dataTable value="#{funcionarioBean.funcionario}" var="pacAtual"
-			border="1">
+		<h:dataTable value="#{funcionarioBean.funcionarios}" var="funcAtual" border="1">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{pacAtual.nome}" />
+				<h:outputText value="#{funcAtual.nome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Idade</f:facet>
-				<h:outputText value="#{pacAtual.idade}" />
+				<h:outputText value="#{funcAtual.idade}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">CPF</f:facet>
-				<h:outputText value="#{pacAtual.cpf}" />
+				<h:outputText value="#{funcAtual.cpf}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Salário</f:facet>
-				<h:outputText value="#{pacAtual.salario}" />
+				<h:outputText value="#{funcAtual.salario}">
+					<f:convertNumber type="currency" currencySymbol="R$" />
+				</h:outputText>
+			</h:column>
+				<h:column>
+				<f:facet name="header">Rua</f:facet>
+				<h:outputText value="#{funcAtual.endereco.rua}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Número]</f:facet>
+				<h:outputText value="#{funcAtual.endereco.numero}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Bairro</f:facet>
+				<h:outputText value="#{funcAtual.endereco.bairro}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cidade</f:facet>
+				<h:outputText value="#{funcAtual.endereco.cidade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CEP</f:facet>
+				<h:outputText value="#{funcAtual.endereco.cidade}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>
-				<h:commandButton action="#{funcionarioBean.carregarFuncionario(pacAtual)}"
+				<h:commandButton action="#{funcionarioBean.carregarFuncionario(funcAtual)}"
 					value="Editar" />
-				<h:commandButton action="#{funcionarioBean.excluir(pacAtual)}"
+				<h:commandButton action="#{funcionarioBean.excluir(funclAtual)}"
 					value="Excluir" />
 			</h:column>
 

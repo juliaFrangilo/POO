@@ -53,54 +53,64 @@ public class FuncionarioBean {
 	
 	@PostConstruct
 	public void iniciar() {
-		listarFuncionarios();
+		atualizarLista();
 		filiais = filialService.listAll();
 	}
-	
+
 	public void gravar() {
 		
-		endereco = enderecoService.mergeEndereco(endereco); // o metodo merge foi utilizado para deixar o objeto gerenciado novamente
-	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Endereco gravada com Sucesso!"));
-	    
-	    funcionario.setEndereco(endereco);
-	    
-	    Filial f = filialService.obtemPorId(idFilial);
+		Filial f = filialService.obtemPorId(idFilial);
 		funcionario.setFilial(f);
 		funcionarioService.create(funcionario);
+		
+		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
+		endereco = enderecoService.mergeEndereco(endereco); 
+	    FacesContext.getCurrentInstance().
+	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
+	    funcionario.setEndereco(endereco);
 	    
-	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Funcionario gravada com Sucesso!"));
+	    FacesContext.getCurrentInstance().
+	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
 	    funcionario = new Funcionario();
 	    endereco = new Endereco();
 	    atualizarLista();
-	    listarFuncionarios();
 		idFilial = 0L;
 	}
 	
 	public void atualizar() {
+		
+		endereco = enderecoService.mergeEndereco(endereco);
+		FacesContext.getCurrentInstance().
+		addMessage("msg1", new FacesMessage("Funcionario atualizado com Sucesso!"));
+		funcionario.setEndereco(endereco);
+		
+		
 		funcionarioService.merge(funcionario);
 		FacesContext.getCurrentInstance().
 		addMessage("msg1", new FacesMessage("Funcionario atualizado com Sucesso!"));
 		funcionario = new Funcionario();
+		endereco = new Endereco();
 		atualizarLista();
 		gravar = true;
 	}
 	
-	public void excluir(Funcionario f) {
+
+	public void carregarFuncionario(Funcionario f) {
+		funcionario = f;
+		idFilial = f.getFilial().getId();
+		endereco = f.getEndereco();
+	    gravar = false;
+		
+	}
+	
+	public void excluirFuncionario(Funcionario f) {
 		funcionarioService.remove(f);
 		atualizarLista();
 		FacesContext.getCurrentInstance().
-		addMessage("msg1", new FacesMessage("Funcionário removido com Sucesso!"));
+		addMessage("msg1", new FacesMessage("Funcionario removido com sucesso!"));
 	}
 	
-	public void carregarFuncionario(Funcionario f) {
-		funcionario = f;
-		gravar = false;
-	}
-	
-	public void listarFuncionarios() {
-		funcionarios = funcionarioService.listAll(); 
-	}
-	
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
