@@ -46,13 +46,15 @@ public class FilialBean {
 	}
 	
 	public void gravar() {
-		endereco = enderecoService.mergeEndereco(endereco); // Utilize merge para tornar o objeto gerenciado
-	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Endereco gravada com Sucesso!"));
-	    
+		
+		endereco = enderecoService.mergeEndereco(endereco); 
+	    FacesContext.getCurrentInstance().
+	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
 	    filial.setEndereco(endereco);
-	    filialService.create(filial);
+		filialService.create(filial);
 	    
-	    FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Filial gravada com Sucesso!"));
+	    FacesContext.getCurrentInstance().
+	    addMessage("msg1", new FacesMessage("Filial gravada com Sucesso!"));
 	    filial = new Filial();
 	    endereco = new Endereco();
 	    atualizarLista();
@@ -60,16 +62,23 @@ public class FilialBean {
 	}
 	
 	public void atualizar() {
+		endereco = enderecoService.mergeEndereco(endereco);
+		FacesContext.getCurrentInstance().
+		addMessage("msg1", new FacesMessage("Endereço atualizado com Sucesso!"));
+		filial.setEndereco(endereco);
+		
 		filialService.merge(filial);
 		FacesContext.getCurrentInstance().
 		addMessage("msg1", new FacesMessage("Filial atualizada com Sucesso!"));
 		filial= new Filial();
+		endereco = new Endereco();
 		atualizarLista();
 		gravar = true;
 	}
 	
 	public void carregarFilial(Filial f) {
 		filial = f;
+		endereco = f.getEndereco();	
 		gravar = false;
 	}
 

@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+
 import modelo.Endereco;
 import modelo.Filial;
 import modelo.Funcionario;
@@ -59,16 +60,16 @@ public class FuncionarioBean {
 
 	public void gravar() {
 		
-		Filial f = filialService.obtemPorId(idFilial);
-		funcionario.setFilial(f);
-		funcionarioService.create(funcionario);
-		
 		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 		endereco = enderecoService.mergeEndereco(endereco); 
 	    FacesContext.getCurrentInstance().
 	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
 	    funcionario.setEndereco(endereco);
-	    
+		
+		Filial f = filialService.obtemPorId(idFilial);
+		funcionario.setFilial(f);
+		funcionarioService.create(funcionario);
+		
 	    FacesContext.getCurrentInstance().
 	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
 	    funcionario = new Funcionario();
