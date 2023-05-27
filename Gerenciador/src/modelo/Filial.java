@@ -19,7 +19,7 @@ public class Filial {
 	private Endereco endereco;
 	
 	@Transient
-	private Long totalFuncionarios;
+	private Long totalFuncionarios = 0L;
 	
 	public Filial() {}
 	

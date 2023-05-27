@@ -8,15 +8,22 @@
 <body> 
 	<h:messages />
 	<h:form>
-	
-	    <h:outputLabel value="Emissão de Relatório" />
+	 <h:outputLabel value="EMISSÃO DE RELATÓRIO" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Valor Inicial" />
 			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
 			<h:outputLabel value="Valor Final" />
 			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
+			<f:selectItem itemLabel="Todas as filiais" itemValue="0"/>
+			<f:selectItems value="#{funcionarioBean.filiais}" var="filialAtual"
+					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
+			</h:selectOneMenu>
+			
+						
+			<h:commandButton action="#{funcionarioBean.filtrar()}" value="Filtrar"
+				rendered="#{funcionarioBean.filtrar}" />
 		</h:panelGrid>
-	</h:form>
-
+      </h:form>
 </body> 
 </html>

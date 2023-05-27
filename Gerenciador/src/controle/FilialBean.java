@@ -59,8 +59,6 @@ public class FilialBean {
 	public void gravar() {
 		
 		endereco = enderecoService.mergeEndereco(endereco); 
-	    FacesContext.getCurrentInstance().
-	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
 	    filial.setEndereco(endereco);
 		filialService.create(filial);
 	    
@@ -74,8 +72,7 @@ public class FilialBean {
 	
 	public void atualizar() {
 		endereco = enderecoService.mergeEndereco(endereco);
-		FacesContext.getCurrentInstance().
-		addMessage("msg1", new FacesMessage("Endereço atualizado com Sucesso!"));
+		
 		filial.setEndereco(endereco);
 		
 		filialService.merge(filial);

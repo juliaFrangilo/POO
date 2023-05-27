@@ -8,6 +8,7 @@
 <body>
 <h:messages />
 	<h:form>
+	<h:outputLabel value="FUNCIONÁRIO" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{funcionarioBean.funcionario.nome}" />
@@ -66,7 +67,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">CPF</f:facet>
-				<h:outputText value="#{funcAtual.cpf}" />
+				<h:outputText value="#{funcAtual.cpf}" mask="999.999.999-99"/>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Salário</f:facet>

@@ -20,7 +20,20 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		super(Funcionario.class);
 	}
 	
-	
+	public List<Funcionario> ordernaNomeFuncionario() {
+		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
+
+		cQuery.select(rootFuncionario);
+		cQuery.orderBy(cBuilder.asc(rootFuncionario.<String>get("nome")));
+		
+		
+		List<Funcionario> ordenado = 
+				getEntityManager().createQuery(cQuery).getResultList();
+		return ordenado;
+	}
+
 	public List<Funcionario> listarFuncionarioPeloNomeLike(String nome){
 		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
@@ -33,10 +46,10 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		cQuery.orderBy(cBuilder.asc(expNome));
 		
 		
-		List<Funcionario> resultado = getEntityManager().createQuery(cQuery).getResultList();
+		List<Funcionario> resultado = 
+				getEntityManager().createQuery(cQuery).getResultList();
 		
-		return resultado;
-		
+		return resultado;	
 	}
 	
 	public Long listarTotalFuncionarioPorFilial(Long idFilial){
@@ -47,7 +60,7 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
 		
 		cQuery.select(cBuilder.count(rootFuncionario));
-		cQuery.where(cBuilder.equal(rootFuncionario.get("Filial").get("id"), idFilial));
+		cQuery.where(cBuilder.equal(rootFuncionario.get("filial").get("id"),idFilial));
 		
 		Long resultado = 
 				getEntityManager().createQuery(cQuery).getSingleResult();

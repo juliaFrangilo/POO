@@ -8,6 +8,7 @@
 <body>
 	<h:messages />
 	<h:form>
+	 <h:outputLabel value="FILIAL" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{filialBean.filial.nome}" />
@@ -63,7 +64,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Funcionarios</f:facet>
-				<h:outputText value="#{filialAtual.totalFuncionarios}" />
+				<h:outputText value="#{funcionarioBean.TotalFuncionariosPorFilial(idFilial)}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>
@@ -72,11 +73,6 @@
 			</h:column>
 
 		</h:dataTable>
-		
-		
-		
-		
-		
 	</h:form>
 
 </body>

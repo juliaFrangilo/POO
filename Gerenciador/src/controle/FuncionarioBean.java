@@ -35,18 +35,28 @@ public class FuncionarioBean {
 	private Endereco endereco = new Endereco();
 	
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-	
 	private List<Filial> filiais = new ArrayList<Filial>();
-	private Long idFilial = 0L;
+
 	
+	private Long idFilial;
 	private Boolean gravar = true; 
 	private String texto;
+	
 
 	
 	public void pesquisar() {
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
 	}
 
+	@PostConstruct
+	public void ordenaNomeFuncionario(){
+		funcionarios =  funcionarioService.ordernaNomeFuncionario();
+	}
+	
+	public Long TotalFuncionariosPorFilial(Long idFilial) {
+	    return funcionarioService.listarTotalFuncionarioPorFilial(idFilial);
+	}
+	
 	private void atualizarLista() {
 		funcionarios = funcionarioService.listAll();
 	}
@@ -59,14 +69,18 @@ public class FuncionarioBean {
 
 	public void gravar() {
 		
+		 FacesContext facesContext = FacesContext.getCurrentInstance();
+	        if (facesContext.isValidationFailed()) {
+	        	
+	        	FacesContext.getCurrentInstance().
+	    	    addMessage("msg1", new FacesMessage("Campo Nulo"));
+	        } else {
+		
 		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 		endereco = enderecoService.mergeEndereco(endereco); 
-	    FacesContext.getCurrentInstance().
-	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
 	    funcionario.setEndereco(endereco);
 		
 		Filial f = filialService.obtemPorId(idFilial);
-		f.setTotalFuncionarios(funcionarioService.listarTotalFuncionarioPorFilial(idFilial));
 		funcionario.setFilial(f);
 		funcionarioService.create(funcionario);
 		
@@ -76,15 +90,20 @@ public class FuncionarioBean {
 	    endereco = new Endereco();
 	    atualizarLista();
 		idFilial = 0L;
+	        }
 	}
 	
 	public void atualizar() {
 		
+		// Verificar se houve tentativa de alterar a filial
+	    if (!funcionario.getFilial().getId().equals(idFilial)) {
+	    	FacesContext.getCurrentInstance().
+			addMessage("msg1", new FacesMessage("Aviso!!! "
+					+ "Não é permitido alterar a filial do funcionário."));
+	        return;
+	    }
+	    
 		endereco = enderecoService.mergeEndereco(endereco);
-		FacesContext.getCurrentInstance().
-		addMessage("msg1", new FacesMessage("Funcionario atualizado com Sucesso!"));
-		funcionario.setEndereco(endereco);
-		
 		
 		funcionarioService.merge(funcionario);
 		FacesContext.getCurrentInstance().
@@ -95,14 +114,12 @@ public class FuncionarioBean {
 		gravar = true;
 	}
 	
-
 	public void carregarFuncionario(Funcionario f) {
 		funcionario = f;
 		idFilial = f.getFilial().getId();
 		endereco = f.getEndereco();
 	    gravar = false;
-		
-	}
+	 }
 	
 	public void excluirFuncionario(Funcionario f) {
 		funcionarioService.remove(f);
@@ -111,7 +128,6 @@ public class FuncionarioBean {
 		addMessage("msg1", new FacesMessage("Funcionario removido com sucesso!"));
 	}
 	
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -159,7 +175,7 @@ public class FuncionarioBean {
 	public void setGravar(Boolean gravar) {
 		this.gravar = gravar;
 	}
-
+  
 	public String getTexto() {
 		return texto;
 	}
