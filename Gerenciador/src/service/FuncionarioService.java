@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -20,6 +22,21 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		super(Funcionario.class);
 	}
 	
+	@PersistenceContext(unitName="punit")
+    private EntityManager entityManager;
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	
+	public Funcionario mergeFuncionario(Funcionario funcionario){
+		return getEntityManager().merge(funcionario);			
+	}	
 	public List<Funcionario> ordernaNomeFuncionario() {
 		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);

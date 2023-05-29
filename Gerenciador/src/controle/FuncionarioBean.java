@@ -76,20 +76,25 @@ public class FuncionarioBean {
 	    	    addMessage("msg1", new FacesMessage("Campo Nulo"));
 	        } else {
 		
-		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
-		endereco = enderecoService.mergeEndereco(endereco); 
-	    funcionario.setEndereco(endereco);
-		
-		Filial f = filialService.obtemPorId(idFilial);
-		funcionario.setFilial(f);
-		funcionarioService.create(funcionario);
-		
-	    FacesContext.getCurrentInstance().
-	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
-	    funcionario = new Funcionario();
-	    endereco = new Endereco();
-	    atualizarLista();
-		idFilial = 0L;
+
+	    		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
+	    		endereco = enderecoService.mergeEndereco(endereco); 
+	    	    FacesContext.getCurrentInstance().
+	    	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
+	    	    funcionario.setEndereco(endereco);
+	    		
+	    		Filial f = filialService.obtemPorId(idFilial);
+	    		
+	    		funcionario.setFilial(f);
+	    		funcionario = funcionarioService.mergeFuncionario(funcionario);
+	    		f.setTotalFuncionarios(funcionarioService.listarTotalFuncionarioPorFilial(idFilial));
+	    		System.out.println(f.getTotalFuncionarios());
+	    	    FacesContext.getCurrentInstance().
+	    	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
+	    	    funcionario = new Funcionario();
+	    	    endereco = new Endereco();
+	    	    atualizarLista();
+	    		idFilial = 0L;
 	        }
 	}
 	
