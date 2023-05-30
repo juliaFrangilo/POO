@@ -60,11 +60,11 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">CEP</f:facet>
-				<h:outputText value="#{filialAtual.endereco.cidade}" />
+				<h:outputText value="#{filialAtual.endereco.cep}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Funcionarios</f:facet>
-				<h:outputText value="#{funcionarioBean.TotalFuncionariosPorFilial(idFilial)}" />
+				<h:outputText value="#{filialAtual.totalFuncionarios}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>

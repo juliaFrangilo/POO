@@ -48,12 +48,31 @@ public class FilialBean {
 	}
 
 	private void atualizarLista() {
-		filiais = filialService.listAll();
+		filiais = somaTotalFunc();
 	}
 	
 	@PostConstruct
 	private void inicializar() {
 		atualizarLista();
+	}
+	
+	public List<Filial> somaTotalFunc() {
+		List<Filial> result = filialService.listAll();// Supondo que você obtenha uma lista de objetos Filial
+		List<Filial> pronto = new ArrayList<Filial>();
+	    for (Filial filial : result) {
+	        Long filialId = filial.getId();
+	        Long totalFuncionarios = funcionarioService.listarTotalFuncionarioPorFilial(filialId);
+
+	        if (totalFuncionarios != null) {
+	            filial.setTotalFuncionarios(totalFuncionarios);
+	        } else {
+	            filial.setTotalFuncionarios(0L);
+	        }
+	
+	        pronto.add(filial);
+	    }
+		return pronto;
+
 	}
 	
 	public void gravar() {
