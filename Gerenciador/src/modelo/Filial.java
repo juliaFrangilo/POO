@@ -11,7 +11,7 @@ public class Filial {
 	
 	@Id @GeneratedValue
 	private Long id;
-	
+
 	private String nome;
 	private String cnpj;
 	

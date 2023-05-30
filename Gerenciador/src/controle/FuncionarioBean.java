@@ -87,8 +87,6 @@ public class FuncionarioBean {
 	    		
 	    		funcionario.setFilial(f);
 	    		funcionario = funcionarioService.mergeFuncionario(funcionario);
-	    		f.setTotalFuncionarios(funcionarioService.listarTotalFuncionarioPorFilial(idFilial));
-	    		System.out.println(f.getTotalFuncionarios());
 	    	    FacesContext.getCurrentInstance().
 	    	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
 	    	    funcionario = new Funcionario();
