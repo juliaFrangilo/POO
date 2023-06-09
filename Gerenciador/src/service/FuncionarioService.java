@@ -85,4 +85,40 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		return resultado;
 		
 	}
+	
+	public List<Funcionario> listarFuncionarioValorSalarialSemFilial(Double salarioInicial, Double salarioFinal){
+		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
+		
+		final Expression<String> expSalario = rootFuncionario.get("salario");
+		
+		cQuery.select(rootFuncionario);
+		cQuery.where(cBuilder.between(rootFuncionario.<Double>get("salario"),salarioInicial,salarioFinal));
+		cQuery.orderBy(cBuilder.asc(expSalario));
+		
+		
+		List<Funcionario> resultado = 
+				getEntityManager().createQuery(cQuery).getResultList();
+		
+		return resultado;	
+	}
+	
+	public List<Funcionario> listarFuncionarioValorSalarialComFilial(Double salarioInicial, Double salarioFinal, Long idFilial){
+		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
+		
+		final Expression<String> expSalario = rootFuncionario.get("salario");
+		
+		cQuery.select(rootFuncionario);
+		cQuery.where(cBuilder.and(cBuilder.equal(rootFuncionario.get("filial").get("id"),idFilial), cBuilder.between(rootFuncionario.<Double>get("salario"),salarioInicial,salarioFinal)));
+		cQuery.orderBy(cBuilder.asc(expSalario));
+		
+		
+		List<Funcionario> resultado = 
+				getEntityManager().createQuery(cQuery).getResultList();
+		
+		return resultado;	
+	}
 }

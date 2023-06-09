@@ -11,19 +11,40 @@
 	 <h:outputLabel value="EMISSÃO DE RELATÓRIO" />
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Valor Inicial" />
-			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
+			<h:inputText value="#{relatorioBean.salarioInicial}" />
 			<h:outputLabel value="Valor Final" />
-			<h:inputText value="#{funcionarioBean.funcionario.salario}" />
-			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
+			<h:inputText value="#{relatorioBean.salarioFinal}" />
+			<h:outputLabel value="Seleciona Filial" />
+			<h:selectOneMenu value="#{relatorioBean.idFilial}">
 			<f:selectItem itemLabel="Todas as filiais" itemValue="0"/>
-			<f:selectItems value="#{funcionarioBean.filiais}" var="filialAtual"
+			<f:selectItems value="#{relatorioBean.filiais}" var="filialAtual"
 					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
 			</h:selectOneMenu>
 			
 						
-			<h:commandButton action="#{funcionarioBean.filtrar()}" value="Filtrar"
-				rendered="#{funcionarioBean.filtrar}" />
+			<h:commandButton action="#{relatorioBean.gerarRelatorio()}" value="Gerar Relatorio"
+				 />
 		</h:panelGrid>
+		<h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{funcAtual.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CPF</f:facet>
+				<h:outputText value="#{funcAtual.cpf}" mask="999.999.999-99"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Salário</f:facet>
+				<h:outputText value="#{funcAtual.salario}">
+					<f:convertNumber type="currency" currencySymbol="R$" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome Filial</f:facet>
+				<h:outputText value="#{funcAtual.filial.nome}" />
+			</h:column>
+		</h:dataTable>
       </h:form>
 </body> 
 </html>

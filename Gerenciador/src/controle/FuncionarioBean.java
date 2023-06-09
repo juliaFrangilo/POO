@@ -42,7 +42,6 @@ public class FuncionarioBean {
 	private Boolean gravar = true; 
 	private String texto;
 	
-
 	
 	public void pesquisar() {
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
@@ -51,10 +50,6 @@ public class FuncionarioBean {
 	@PostConstruct
 	public void ordenaNomeFuncionario(){
 		funcionarios =  funcionarioService.ordernaNomeFuncionario();
-	}
-	
-	public Long TotalFuncionariosPorFilial(Long idFilial) {
-	    return funcionarioService.listarTotalFuncionarioPorFilial(idFilial);
 	}
 	
 	private void atualizarLista() {
