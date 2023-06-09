@@ -22,8 +22,8 @@
 			</h:selectOneMenu>
 			
 						
-			<h:commandButton action="#{relatorioBean.gerarRelatorio()}" value="Gerar Relatorio"
-				 />
+			<h:commandButton action="#{relatorioBean.gerarRelatorio()}" value="Gerar Relatorio"/>
+			<h:button outcome="index?faces-redirect=true" value="Pagina Inicial"></h:button>
 		</h:panelGrid>
 		<h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1">
 			<h:column>

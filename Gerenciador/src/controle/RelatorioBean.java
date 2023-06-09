@@ -41,11 +41,18 @@ public class RelatorioBean {
 		System.out.println(salarioInicial);
 		System.out.println(salarioFinal);
 		System.out.println(idFilial);
-		if(idFilial == 0 ) {
+		if(idFilial == 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
 			funcionarios = funcionarioService.listarFuncionarioValorSalarialSemFilial(salarioInicial,salarioFinal);
-		}else {
+		}else if(idFilial != 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
 			funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial,salarioFinal,idFilial);
+		}else if(idFilial == 0 && salarioInicial == 0.0 && salarioFinal == 0.0) {
+			funcionarios = funcionarioService.ordernaNomeFuncionario();
+		}else if(idFilial != 0 && salarioInicial == 0.0 && salarioFinal == 0.0) {
+			funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
 		}
+		idFilial = 0L;
+		salarioInicial = 0.0;
+		salarioFinal = 0.0;
 		
 	}
 	

@@ -53,7 +53,7 @@ public class FuncionarioBean {
 	}
 	
 	private void atualizarLista() {
-		funcionarios = funcionarioService.listAll();
+		funcionarios = funcionarioService.ordernaNomeFuncionario();
 	}
 	
 	@PostConstruct
@@ -110,6 +110,7 @@ public class FuncionarioBean {
 		endereco = new Endereco();
 		atualizarLista();
 		gravar = true;
+		idFilial = 0L;
 	}
 	
 	public void carregarFuncionario(Funcionario f) {
