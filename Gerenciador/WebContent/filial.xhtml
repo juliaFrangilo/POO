@@ -6,8 +6,10 @@
 
 <h:head></h:head>
 <body>
-	<h:messages/>
+
+	<h:messages />
 	<h:form>
+	
 	 <h:outputLabel value="FILIAL" />
 	 
 		<h:panelGrid columns="2">
@@ -34,7 +36,9 @@
 				value="Atualizar" rendered="#{!filialBean.gravar}" />
 			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
 		</h:panelGrid>
-	
+	   </h:form>
+
+	   <h:form>
 		<h:dataTable value="#{filialBean.filiais}" var="filialAtual" border="1">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
@@ -72,11 +76,11 @@
 				<f:facet name="header">Ações</f:facet>
 				<h:commandButton action="#{filialBean.carregarFilial(filialAtual)}"
 					value="Editar" />
-				
 			</h:column>
 
 		</h:dataTable>
 	</h:form>
+		
 
 </body>
 </html>

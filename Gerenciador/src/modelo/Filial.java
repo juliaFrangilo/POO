@@ -6,16 +6,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+
+
 @Entity
 public class Filial {
 	
 	@Id @GeneratedValue
 	private Long id;
+    
 
 	private String nome;
-	private String cnpj;
+    private String cnpj;
 	
 	@OneToOne
+    
 	private Endereco endereco;
 	
 	@Transient

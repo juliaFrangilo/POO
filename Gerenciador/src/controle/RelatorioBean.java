@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import modelo.Filial;
 import modelo.Funcionario;
@@ -32,7 +34,8 @@ public class RelatorioBean {
 	private String texto;
 	private BigDecimal salarioInicial;
 	private BigDecimal salarioFinal;
-	private String mensagem;
+	
+	
 	
 	@PostConstruct
 	public void iniciar() {
@@ -47,16 +50,18 @@ public class RelatorioBean {
 	        funcionarios = funcionarioService.ordernaNomeFuncionario();
 	    } else if (idFilial != 0 && salarioInicial == null && salarioFinal == null) {
 	        funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
-	    } else if (funcionarios.isEmpty()) {
-          mensagem = "Nenhum Funcionário encontrado com essa faixa salarial";
-        } else {
-            mensagem = null;
-        }
+	  
+	    }  
+
 	    salarioInicial = null;
 	    salarioFinal = null;
 	    idFilial = 0L;
-	}
-	
+	    
+	    if (funcionarios.isEmpty()) {
+			 FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("Nenhum Funcionário encontrado com essa faixa salarial."));
+		 }
+	}	
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -99,8 +104,5 @@ public class RelatorioBean {
 	public void setSalarioFinal(BigDecimal salarioFinal) {
 		this.salarioFinal = salarioFinal;
 	}
-  
 	
-	
-
 }

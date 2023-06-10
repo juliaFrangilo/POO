@@ -6,7 +6,7 @@
 
 <h:head></h:head> 
 <body>
-   <h:messages />
+    <h:messages />
 	<h:form>
 	<h:outputLabel value="FUNCIONÁRIO" />
 		<h:panelGrid columns="2">
@@ -21,7 +21,7 @@
 			<h:outputLabel value="Filial:" for="filial"/>
 			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
-			<f:selectItems value="#{funcionarioBean.filiais}" var="filialAtual"
+			<f:selectItems  value="#{funcionarioBean.filiais}" var="filialAtual"
 					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
 			</h:selectOneMenu>
 			

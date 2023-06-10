@@ -44,14 +44,21 @@ public class FuncionarioBean {
 	private String texto;
 	
 	
+	
 	public void pesquisar() { // Pesquisa por nome
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
 		texto = null;
+
+		 if (funcionarios.isEmpty()) {
+			 FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("Aviso!!! Funcionário não encontrado."));
+		 }
 	}
 
 	@PostConstruct
 	public void ordenaNomeFuncionario(){ //Ordena por nome Funcionario
 		funcionarios =  funcionarioService.ordernaNomeFuncionario();
+		
 	}
 	
 	private void atualizarLista() {

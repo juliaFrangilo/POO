@@ -83,7 +83,7 @@ public class FilialBean {
 	
 }
 	public void atualizar() {
-		System.out.println("estiveaquiatu");
+		
 		endereco = enderecoService.mergeEndereco(endereco);
 		
 		filialService.merge(filial);
@@ -97,7 +97,7 @@ public class FilialBean {
 	
 	
 	public void carregarFilial(Filial f) {
-		System.out.println("estiveaqui");
+		
 		filial = f;
 		endereco = f.getEndereco();
 		gravar = false;
