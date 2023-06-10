@@ -72,22 +72,31 @@ public class FuncionarioBean {
 	}
 
 	public void gravar() {
+		if (funcionario.getSalario() == 0.0  ) {
+			 FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("Campo salario obrigatorio."));
+		 } else if(idFilial == 0){
+			 FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("Selecione a filial do funcionario"));
+		 }else {
+			// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
+			    endereco = enderecoService.mergeEndereco(endereco);
+			    funcionario.setEndereco(endereco);
+			    	   
+			    		
+			   	Filial f = filialService.obtemPorId(idFilial);
+			    		
+			    funcionario.setFilial(f);
+			    funcionario = funcionarioService.mergeFuncionario(funcionario);
+			    FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
+			    funcionario = new Funcionario();
+			    endereco = new Endereco();
+			    atualizarLista();
+			    idFilial = 0L;
+		 }
 
-	  	// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
-	    endereco = enderecoService.mergeEndereco(endereco);
-	    funcionario.setEndereco(endereco);
-	    	   
-	    		
-	   	Filial f = filialService.obtemPorId(idFilial);
-	    		
-	    funcionario.setFilial(f);
-	    funcionario = funcionarioService.mergeFuncionario(funcionario);
-	    FacesContext.getCurrentInstance().
-	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
-	    funcionario = new Funcionario();
-	    endereco = new Endereco();
-	    atualizarLista();
-	    idFilial = 0L;
+	  	
 	  }
 	
 	

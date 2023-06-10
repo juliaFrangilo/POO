@@ -1,6 +1,6 @@
 package controle;
 
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +32,8 @@ public class RelatorioBean {
 	
 	private Long idFilial;
 	private String texto;
-	private BigDecimal salarioInicial;
-	private BigDecimal salarioFinal;
+	private Double salarioInicial ;
+	private Double salarioFinal ;
 	
 	
 	
@@ -42,16 +42,39 @@ public class RelatorioBean {
 		filiais = filialService.listAll();
 	}
 	public void gerarRelatorio() {
-	    if (idFilial == 0 && salarioInicial != null && salarioFinal != null) {
+		System.out.println(salarioInicial);
+		System.out.println(salarioFinal);
+		
+		//filtra funcionarios por salario
+		if (idFilial == 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
 	        funcionarios = funcionarioService.listarFuncionarioValorSalarialSemFilial(salarioInicial, salarioFinal);
-	    } else if (idFilial != 0 && salarioInicial != null && salarioFinal != null) {
+	    }//filtra funcionarios por salario e por filial 
+		else if (idFilial != 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
 	        funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial, salarioFinal, idFilial);
-	    } else if (idFilial == 0 && salarioInicial == null && salarioFinal == null) {
+	    }//filtra funcionarios por salario final 
+		else if (idFilial == 0 && salarioInicial == 0.0 && salarioFinal != 0.0) {
 	        funcionarios = funcionarioService.ordernaNomeFuncionario();
-	    } else if (idFilial != 0 && salarioInicial == null && salarioFinal == null) {
+	    }//filtra funcionarios por salario final e por filial 
+		else if (idFilial != 0 && salarioInicial == 0.0 && salarioFinal != 0.0) {
 	        funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
-	  
-	    }  
+	    }//sem filtro 
+		else if(salarioFinal == 0.0 && idFilial == 0) {
+			//verifica se o salario inicial foi preenchido e avisa que ele foi desconsiderado por que o final não foi preenchido
+	    	if(salarioInicial != 0.0) {
+	    		FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("O filtro salarial foi desconsiderado por que o valor final não foi definido."));
+	    	}
+	    	funcionarios = funcionarioService.ordernaNomeFuncionario();
+	    }//sem filtro 
+		else if(salarioFinal == 0.0 && idFilial != 0) {
+			//verifica se o salario inicial foi preenchido e avisa que ele foi desconsiderado por que o final não foi preenchido
+	    	if(salarioInicial != 0.0) {
+	    		FacesContext.getCurrentInstance().
+			    addMessage("msg1", new FacesMessage("O filtro salarial foi desconsiderado por que o valor final não foi definido."));
+	    	}
+	    	
+	    	funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
+	    }
 
 	    salarioInicial = null;
 	    salarioFinal = null;
@@ -59,7 +82,7 @@ public class RelatorioBean {
 	    
 	    if (funcionarios.isEmpty()) {
 			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Nenhum Funcionário encontrado com essa faixa salarial."));
+			    addMessage("msg1", new FacesMessage("Nenhum Funcionário encontrado para essa pesquisa."));
 		 }
 	}	
 	public Funcionario getFuncionario() {
@@ -92,16 +115,16 @@ public class RelatorioBean {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	public BigDecimal getSalarioInicial() {
+	public Double getSalarioInicial() {
 		return salarioInicial;
 	}
-	public void setSalarioInicial(BigDecimal salarioInicial) {
+	public void setSalarioInicial(Double salarioInicial) {
 		this.salarioInicial = salarioInicial;
 	}
-	public BigDecimal getSalarioFinal() {
+	public Double getSalarioFinal() {
 		return salarioFinal;
 	}
-	public void setSalarioFinal(BigDecimal salarioFinal) {
+	public void setSalarioFinal(Double salarioFinal) {
 		this.salarioFinal = salarioFinal;
 	}
 	
