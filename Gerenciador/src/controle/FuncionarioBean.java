@@ -1,5 +1,6 @@
 package controle;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +44,12 @@ public class FuncionarioBean {
 	private String texto;
 	
 	
-	public void pesquisar() {
+	public void pesquisar() { // Pesquisa por nome
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
 	}
 
 	@PostConstruct
-	public void ordenaNomeFuncionario(){
+	public void ordenaNomeFuncionario(){ //Ordena por nome Funcionario
 		funcionarios =  funcionarioService.ordernaNomeFuncionario();
 	}
 	
@@ -63,36 +64,26 @@ public class FuncionarioBean {
 	}
 
 	public void gravar() {
-		
-		 FacesContext facesContext = FacesContext.getCurrentInstance();
-	        if (facesContext.isValidationFailed()) {
-	        	
-	        	FacesContext.getCurrentInstance().
-	    	    addMessage("msg1", new FacesMessage("Campo Nulo"));
-	        } else {
-		
 
-	    		// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
-	    		endereco = enderecoService.mergeEndereco(endereco); 
-	    	    FacesContext.getCurrentInstance().
-	    	    addMessage("msg1", new FacesMessage("Endereco gravado com Sucesso!"));
-	    	    funcionario.setEndereco(endereco);
+	  	// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
+	    endereco = enderecoService.mergeEndereco(endereco);
+	    funcionario.setEndereco(endereco);
+	    	   
 	    		
-	    		Filial f = filialService.obtemPorId(idFilial);
+	   	Filial f = filialService.obtemPorId(idFilial);
 	    		
-	    		funcionario.setFilial(f);
-	    		funcionario = funcionarioService.mergeFuncionario(funcionario);
-	    	    FacesContext.getCurrentInstance().
-	    	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
-	    	    funcionario = new Funcionario();
-	    	    endereco = new Endereco();
-	    	    atualizarLista();
-	    		idFilial = 0L;
+	    funcionario.setFilial(f);
+	    funcionario = funcionarioService.mergeFuncionario(funcionario);
+	    FacesContext.getCurrentInstance().
+	    addMessage("msg1", new FacesMessage("Funcionario gravado com Sucesso!"));
+	    funcionario = new Funcionario();
+	    endereco = new Endereco();
+	    atualizarLista();
+	    idFilial = 0L;
 	        }
-	}
+	
 	
 	public void atualizar() {
-		
 		// Verificar se houve tentativa de alterar a filial
 	    if (!funcionario.getFilial().getId().equals(idFilial)) {
 	    	FacesContext.getCurrentInstance().
@@ -127,6 +118,19 @@ public class FuncionarioBean {
 		addMessage("msg1", new FacesMessage("Funcionario removido com sucesso!"));
 	}
 	
+	public static String formatarCPF(String cpf) {
+	    if (cpf.length() < 9) {
+	        return cpf; // Retorna o CPF sem formatação se tiver menos de 9 caracteres
+	    }
+
+	    return MessageFormat.format("{0}.{1}.{2}-{3}",
+	            cpf.substring(0, 3),
+	            cpf.substring(3, 6),
+	            cpf.substring(6, 9),
+	            cpf.substring(9));
+	}
+	
+
 	public Endereco getEndereco() {
 		return endereco;
 	}

@@ -1,5 +1,6 @@
 package controle;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,34 +30,31 @@ public class RelatorioBean {
 	
 	private Long idFilial;
 	private String texto;
-	private Double salarioInicial = 0.0;
-	private Double salarioFinal = 0.0;
+	private BigDecimal salarioInicial;
+	private BigDecimal salarioFinal;
+	private String mensagem;
 	
 	@PostConstruct
 	public void iniciar() {
 		filiais = filialService.listAll();
 	}
-	
-	public void gerarRelatorio(){
-		System.out.println(salarioInicial);
-		System.out.println(salarioFinal);
-		System.out.println(idFilial);
-		if(idFilial == 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
-			funcionarios = funcionarioService.listarFuncionarioValorSalarialSemFilial(salarioInicial,salarioFinal);
-		}else if(idFilial != 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {
-			funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial,salarioFinal,idFilial);
-		}else if(idFilial == 0 && salarioInicial == 0.0 && salarioFinal == 0.0) {
-			funcionarios = funcionarioService.ordernaNomeFuncionario();
-		}else if(idFilial != 0 && salarioInicial == 0.0 && salarioFinal == 0.0) {
-			funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
-		}
-		idFilial = 0L;
-		salarioInicial = 0.0;
-		salarioFinal = 0.0;
-		
+	public void gerarRelatorio() {
+	    if (idFilial == 0 && salarioInicial != null && salarioFinal != null) {
+	        funcionarios = funcionarioService.listarFuncionarioValorSalarialSemFilial(salarioInicial, salarioFinal);
+	    } else if (idFilial != 0 && salarioInicial != null && salarioFinal != null) {
+	        funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial, salarioFinal, idFilial);
+	    } else if (idFilial == 0 && salarioInicial == null && salarioFinal == null) {
+	        funcionarios = funcionarioService.ordernaNomeFuncionario();
+	    } else if (idFilial != 0 && salarioInicial == null && salarioFinal == null) {
+	        funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
+	    } else if (funcionarios.isEmpty()) {
+          mensagem = "Nenhum Funcionário encontrado com essa faixa salarial";
+        } else {
+            mensagem = null;
+        }
 	}
 	
-	public Funcionario getFuncionario() {
+		public Funcionario getFuncionario() {
 		return funcionario;
 	}
 	public void setFuncionario(Funcionario funcionario) {
@@ -86,18 +84,20 @@ public class RelatorioBean {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	public Double getSalarioInicial() {
+	public BigDecimal getSalarioInicial() {
 		return salarioInicial;
 	}
-	public void setSalarioInicial(Double salarioInicial) {
+	public void setSalarioInicial(BigDecimal salarioInicial) {
 		this.salarioInicial = salarioInicial;
 	}
-	public Double getSalarioFinal() {
+	public BigDecimal getSalarioFinal() {
 		return salarioFinal;
 	}
-	public void setSalarioFinal(Double salarioFinal) {
+	public void setSalarioFinal(BigDecimal salarioFinal) {
 		this.salarioFinal = salarioFinal;
 	}
+  
+	
 	
 
 }

@@ -6,7 +6,7 @@
 
 <h:head></h:head> 
 <body>
-<h:messages />
+   <h:messages />
 	<h:form>
 	<h:outputLabel value="FUNCIONÁRIO" />
 		<h:panelGrid columns="2">
@@ -44,7 +44,7 @@
 				rendered="#{funcionarioBean.gravar}" />
 			<h:commandButton action="#{funcionarioBean.atualizar()}"
 				value="Atualizar" rendered="#{!funcionarioBean.gravar}" />
-			<h:button outcome="index?faces-redirect=true" value="Pagina Inicial"></h:button>
+			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
 		</h:panelGrid>
 	</h:form>
 
@@ -67,7 +67,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">CPF</f:facet>
-				<h:outputText value="#{funcAtual.cpf}" mask="999.999.999-99"/>
+				<h:outputText value= "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Salário</f:facet>

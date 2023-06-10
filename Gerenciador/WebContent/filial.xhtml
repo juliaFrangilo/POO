@@ -6,32 +6,33 @@
 
 <h:head></h:head>
 <body>
-	<h:messages />
+	<h:messages/>
 	<h:form>
 	 <h:outputLabel value="FILIAL" />
+	 
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
-			<h:inputText required="true" requiredMessage="Campo nome obrigatorio" value="#{filialBean.filial.nome}" />
+			<h:inputText value="#{filialBean.filial.nome}" required="true" requiredMessage="Campo nome obrigatório" />
 			<h:outputLabel value="CNPJ:" />
-			<h:inputText required="true" requiredMessage="Campo cnpj obrigatorio" value="#{filialBean.filial.cnpj}" />
+			<h:inputText  value="#{filialBean.filial.cnpj}" required="true" requiredMessage="Campo CNPJ obrigatório" />
 			<h:outputLabel value="Informações" />
 			<h:outputLabel value=" do Endereço" />
 			<h:outputLabel value="Rua:" />
-			<h:inputText required="true" requiredMessage="Campo rua obrigatorio" value="#{filialBean.endereco.rua}" />
-			<h:outputLabel value="Numero:" />
-			<h:inputText required="true" requiredMessage="Campo numero obrigatorio" value="#{filialBean.endereco.numero}" />
+			<h:inputText value="#{filialBean.endereco.rua}" required="true" requiredMessage="Campo rua obrigatório" />
+			<h:outputLabel value="Número:" />
+			<h:inputText  value="#{filialBean.endereco.numero}" required="true" requiredMessage="Campo número obrigatório" />
 			<h:outputLabel value="Bairro:" />
-			<h:inputText required="true" requiredMessage="Campo bairro obrigatorio" value="#{filialBean.endereco.bairro}" />
+			<h:inputText  value="#{filialBean.endereco.bairro}" required="true" requiredMessage="Campo bairro obrigatório" />
 			<h:outputLabel value="Cidade:" />
-			<h:inputText required="true" requiredMessage="Campo cidade obrigatorio" value="#{filialBean.endereco.cidade}" />
+			<h:inputText value="#{filialBean.endereco.cidade}" required="true" requiredMessage="Campo cidade obrigatório" />
 			<h:outputLabel value="CEP:" />
-			<h:inputText required="true" requiredMessage="Campo cep obrigatorio" value="#{filialBean.endereco.cep}" />
+			<h:inputText value="#{filialBean.endereco.cep}" required="true" requiredMessage="Campo CEP obrigatório" />
+	
 			<h:commandButton action="#{filialBean.gravar()}" value="Gravar"
-				rendered="#{filialBean.gravar}" />
+				rendered="#{filialBean.gravar}"/>
 			<h:commandButton action="#{filialBean.atualizar()}"
 				value="Atualizar" rendered="#{!filialBean.gravar}" />
-			<h:button outcome="index?faces-redirect=true" value="Pagina Inicial"></h:button>
-
+			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
 		</h:panelGrid>
 	
 		<h:dataTable value="#{filialBean.filiais}" var="filialAtual" border="1">
@@ -41,7 +42,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">CNPJ</f:facet>
-				<h:outputText value="#{filialAtual.cnpj}" />
+				<h:outputText value="#{filialBean.formatarCNPJ(filialAtual.cnpj)}"/>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Rua</f:facet>

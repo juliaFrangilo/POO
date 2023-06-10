@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -86,7 +87,7 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		
 	}
 	
-	public List<Funcionario> listarFuncionarioValorSalarialSemFilial(Double salarioInicial, Double salarioFinal){
+	public List<Funcionario> listarFuncionarioValorSalarialSemFilial(BigDecimal salarioInicial, BigDecimal salarioFinal){
 		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
 		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
@@ -94,7 +95,7 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		final Expression<String> expSalario = rootFuncionario.get("salario");
 		
 		cQuery.select(rootFuncionario);
-		cQuery.where(cBuilder.between(rootFuncionario.<Double>get("salario"),salarioInicial,salarioFinal));
+		cQuery.where(cBuilder.between(rootFuncionario.<BigDecimal>get("salario"),salarioInicial,salarioFinal));
 		cQuery.orderBy(cBuilder.desc(expSalario));
 		
 		
@@ -104,7 +105,7 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		return resultado;	
 	}
 	
-	public List<Funcionario> listarFuncionarioValorSalarialComFilial(Double salarioInicial, Double salarioFinal, Long idFilial){
+	public List<Funcionario> listarFuncionarioValorSalarialComFilial(BigDecimal salarioInicial, BigDecimal salarioFinal, Long idFilial){
 		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
 		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
@@ -112,7 +113,7 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		final Expression<String> expSalario = rootFuncionario.get("salario");
 		
 		cQuery.select(rootFuncionario);
-		cQuery.where(cBuilder.and(cBuilder.equal(rootFuncionario.get("filial").get("id"),idFilial), cBuilder.between(rootFuncionario.<Double>get("salario"),salarioInicial,salarioFinal)));
+		cQuery.where(cBuilder.and(cBuilder.equal(rootFuncionario.get("filial").get("id"),idFilial), cBuilder.between(rootFuncionario.<BigDecimal>get("salario"),salarioInicial,salarioFinal)));
 		cQuery.orderBy(cBuilder.desc(expSalario));
 		
 		

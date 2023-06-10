@@ -15,24 +15,27 @@
 			<h:outputLabel value="Valor Final" />
 			<h:inputText value="#{relatorioBean.salarioFinal}" />
 			<h:outputLabel value="Seleciona Filial" />
-			<h:selectOneMenu value="#{relatorioBean.idFilial}">
+			<h:selectOneMenu value="#{relatorioBean.idFilial}" requiredMessage="Campo cnpj obrigatorio">
 			<f:selectItem itemLabel="Todas as filiais" itemValue="0"/>
 			<f:selectItems value="#{relatorioBean.filiais}" var="filialAtual"
 					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
 			</h:selectOneMenu>
 			
 						
-			<h:commandButton action="#{relatorioBean.gerarRelatorio()}" value="Gerar Relatorio"/>
-			<h:button outcome="index?faces-redirect=true" value="Pagina Inicial"></h:button>
+			<h:commandButton action="#{relatorioBean.gerarRelatorio()}" value="Gerar Relatório"/>
+			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
+			<h:message for="mensagem"/>
 		</h:panelGrid>
-		<h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1">
+		
+		<h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
+			rendered="#{not empty relatorioBean.funcionarios}">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
 				<h:outputText value="#{funcAtual.nome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">CPF</f:facet>
-				<h:outputText value="#{funcAtual.cpf}" mask="999.999.999-99"/>
+				<h:outputText value = "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Salário</f:facet>
@@ -45,6 +48,7 @@
 				<h:outputText value="#{funcAtual.filial.nome}" />
 			</h:column>
 		</h:dataTable>
+	
       </h:form>
 </body> 
 </html>

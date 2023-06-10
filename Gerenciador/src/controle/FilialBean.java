@@ -1,5 +1,7 @@
 package controle;
 
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,24 +41,23 @@ public class FilialBean {
 	private Long totalFuncionarios;
 
 	
-	public Long getTotalFuncionarios() {
-		return totalFuncionarios;
+	
+	@PostConstruct
+	public void ordenaNomeFilial(){ //Ordena por nome Filial
+		filiais= filialService.ordernaNomeFilial();
 	}
-
-	public void setTotalFuncionarios(Long totalFuncionarios) {
-		this.totalFuncionarios = totalFuncionarios;
-	}
-
+	
 	private void atualizarLista() {
 		filiais = somaTotalFunc();
-	}
+		filiais = filialService.ordernaNomeFilial();	
+	} 
 	
 	@PostConstruct
 	private void inicializar() {
 		atualizarLista();
 	}
-	
-	public List<Filial> somaTotalFunc() {
+    
+	 public List<Filial> somaTotalFunc() {
 		List<Filial> result = filialService.listAll();// Supondo que você obtenha uma lista de objetos Filial
 		List<Filial> pronto = new ArrayList<Filial>();
 	    for (Filial filial : result) {
@@ -72,15 +73,20 @@ public class FilialBean {
 	        pronto.add(filial);
 	    }
 		return pronto;
-
-	}
+ }
 	
 	public void gravar() {
-		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext.isValidationFailed()) {
+        	
+        	FacesContext.getCurrentInstance().
+    	    addMessage("msg1", new FacesMessage("Campo Nulo"));
+        } else {
+	
 		endereco = enderecoService.mergeEndereco(endereco); 
 	    filial.setEndereco(endereco);
-		filialService.create(filial);
 	    
+	    filial = filialService.mergeFilial(filial);
 	    FacesContext.getCurrentInstance().
 	    addMessage("msg1", new FacesMessage("Filial gravada com Sucesso!"));
 	    filial = new Filial();
@@ -88,11 +94,9 @@ public class FilialBean {
 	    atualizarLista();
 	    gravar = true;
 	}
-	
+}
 	public void atualizar() {
 		endereco = enderecoService.mergeEndereco(endereco);
-		
-		filial.setEndereco(endereco);
 		
 		filialService.merge(filial);
 		FacesContext.getCurrentInstance().
@@ -103,12 +107,27 @@ public class FilialBean {
 		gravar = true;
 	}
 	
+	
 	public void carregarFilial(Filial f) {
 		filial = f;
-		endereco = f.getEndereco();	
+		endereco = f.getEndereco();
 		gravar = false;
 	}
+	 	
+	public static String formatarCNPJ(String cnpj) {
+	    if (cnpj.length() < 14) {
+	        return cnpj; // Retorna o CNPJ sem formatação se tiver menos de 14 caracteres
+	    }
 
+	    return MessageFormat.format("{0}.{1}.{2}/{3}-{4}",
+	            cnpj.substring(0, 2),
+	            cnpj.substring(2, 5),
+	            cnpj.substring(5, 8),
+	            cnpj.substring(8, 12),
+	            cnpj.substring(12));
+	}
+
+	//getters e setters
 	public Filial getFilial() {
 		return filial;
 	}
@@ -149,5 +168,36 @@ public class FilialBean {
 		this.endereco = endereco;
 	}
 	
-	
+	public FilialService getFilialService() {
+		return filialService;
+	}
+
+	public void setFilialService(FilialService filialService) {
+		this.filialService = filialService;
+	}
+
+	public EnderecoService getEnderecoService() {
+		return enderecoService;
+	}
+
+	public void setEnderecoService(EnderecoService enderecoService) {
+		this.enderecoService = enderecoService;
+	}
+
+	public FuncionarioService getFuncionarioService() {
+		return funcionarioService;
+	}
+
+	public void setFuncionarioService(FuncionarioService funcionarioService) {
+		this.funcionarioService = funcionarioService;
+	}
+   
+	public Long getTotalFuncionarios() {
+		return totalFuncionarios;
+	}
+
+	public void setTotalFuncionarios(Long totalFuncionarios) {
+		this.totalFuncionarios = totalFuncionarios;
+	}
+		
 }
