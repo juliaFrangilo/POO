@@ -52,9 +52,12 @@ public class RelatorioBean {
         } else {
             mensagem = null;
         }
+	    salarioInicial = null;
+	    salarioFinal = null;
+	    idFilial = 0L;
 	}
 	
-		public Funcionario getFuncionario() {
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 	public void setFuncionario(Funcionario funcionario) {

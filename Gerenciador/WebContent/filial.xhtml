@@ -12,21 +12,21 @@
 	 
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
-			<h:inputText value="#{filialBean.filial.nome}" required="true" requiredMessage="Campo nome obrigatório" />
+			<h:inputText  required="true" requiredMessage="Campo nome obrigatório" value="#{filialBean.filial.nome}" />
 			<h:outputLabel value="CNPJ:" />
-			<h:inputText  value="#{filialBean.filial.cnpj}" required="true" requiredMessage="Campo CNPJ obrigatório" />
+			<h:inputText  required="true" requiredMessage="Campo CNPJ obrigatório" value="#{filialBean.filial.cnpj}"  />
 			<h:outputLabel value="Informações" />
 			<h:outputLabel value=" do Endereço" />
 			<h:outputLabel value="Rua:" />
-			<h:inputText value="#{filialBean.endereco.rua}" required="true" requiredMessage="Campo rua obrigatório" />
+			<h:inputText required="true" requiredMessage="Campo rua obrigatório" value="#{filialBean.endereco.rua}"  />
 			<h:outputLabel value="Número:" />
-			<h:inputText  value="#{filialBean.endereco.numero}" required="true" requiredMessage="Campo número obrigatório" />
+			<h:inputText required="true" requiredMessage="Campo número obrigatório"  value="#{filialBean.endereco.numero}"  />
 			<h:outputLabel value="Bairro:" />
-			<h:inputText  value="#{filialBean.endereco.bairro}" required="true" requiredMessage="Campo bairro obrigatório" />
+			<h:inputText required="true" requiredMessage="Campo bairro obrigatório" value="#{filialBean.endereco.bairro}" />
 			<h:outputLabel value="Cidade:" />
-			<h:inputText value="#{filialBean.endereco.cidade}" required="true" requiredMessage="Campo cidade obrigatório" />
+			<h:inputText required="true" requiredMessage="Campo cidade obrigatório" value="#{filialBean.endereco.cidade}"  />
 			<h:outputLabel value="CEP:" />
-			<h:inputText value="#{filialBean.endereco.cep}" required="true" requiredMessage="Campo CEP obrigatório" />
+			<h:inputText required="true" requiredMessage="Campo CEP obrigatório" value="#{filialBean.endereco.cep}" />
 	
 			<h:commandButton action="#{filialBean.gravar()}" value="Gravar"
 				rendered="#{filialBean.gravar}"/>
@@ -72,6 +72,7 @@
 				<f:facet name="header">Ações</f:facet>
 				<h:commandButton action="#{filialBean.carregarFilial(filialAtual)}"
 					value="Editar" />
+				
 			</h:column>
 
 		</h:dataTable>

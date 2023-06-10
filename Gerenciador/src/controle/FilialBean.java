@@ -41,15 +41,8 @@ public class FilialBean {
 	private Long totalFuncionarios;
 
 	
-	
-	@PostConstruct
-	public void ordenaNomeFilial(){ //Ordena por nome Filial
-		filiais= filialService.ordernaNomeFilial();
-	}
-	
 	private void atualizarLista() {
-		filiais = somaTotalFunc();
-		filiais = filialService.ordernaNomeFilial();	
+		filiais = somaTotalFunc();	
 	} 
 	
 	@PostConstruct
@@ -57,32 +50,26 @@ public class FilialBean {
 		atualizarLista();
 	}
     
-	 public List<Filial> somaTotalFunc() {
-		List<Filial> result = filialService.listAll();// Supondo que você obtenha uma lista de objetos Filial
+	public List<Filial> somaTotalFunc() {
+		List<Filial> result = filialService.ordernaNomeFilial();
 		List<Filial> pronto = new ArrayList<Filial>();
-	    for (Filial filial : result) {
-	        Long filialId = filial.getId();
+	    for (Filial filialSoma : result) {
+	        Long filialId = filialSoma.getId();
 	        Long totalFuncionarios = funcionarioService.listarTotalFuncionarioPorFilial(filialId);
 
 	        if (totalFuncionarios != null) {
-	            filial.setTotalFuncionarios(totalFuncionarios);
+	            filialSoma.setTotalFuncionarios(totalFuncionarios);
 	        } else {
-	            filial.setTotalFuncionarios(0L);
+	            filialSoma.setTotalFuncionarios(0L);
 	        }
 	
-	        pronto.add(filial);
+	        pronto.add(filialSoma);
 	    }
 		return pronto;
- }
+	 }
 	
 	public void gravar() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-        if (facesContext.isValidationFailed()) {
-        	
-        	FacesContext.getCurrentInstance().
-    	    addMessage("msg1", new FacesMessage("Campo Nulo"));
-        } else {
-	
+		System.out.println("estiveaquigra");
 		endereco = enderecoService.mergeEndereco(endereco); 
 	    filial.setEndereco(endereco);
 	    
@@ -93,9 +80,10 @@ public class FilialBean {
 	    endereco = new Endereco();
 	    atualizarLista();
 	    gravar = true;
-	}
+	
 }
 	public void atualizar() {
+		System.out.println("estiveaquiatu");
 		endereco = enderecoService.mergeEndereco(endereco);
 		
 		filialService.merge(filial);
@@ -109,6 +97,7 @@ public class FilialBean {
 	
 	
 	public void carregarFilial(Filial f) {
+		System.out.println("estiveaqui");
 		filial = f;
 		endereco = f.getEndereco();
 		gravar = false;

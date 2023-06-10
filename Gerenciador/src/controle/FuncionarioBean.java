@@ -46,6 +46,7 @@ public class FuncionarioBean {
 	
 	public void pesquisar() { // Pesquisa por nome
 		funcionarios = funcionarioService.listarFuncionarioPeloNomeLike(texto);
+		texto = null;
 	}
 
 	@PostConstruct
@@ -80,7 +81,7 @@ public class FuncionarioBean {
 	    endereco = new Endereco();
 	    atualizarLista();
 	    idFilial = 0L;
-	        }
+	  }
 	
 	
 	public void atualizar() {
