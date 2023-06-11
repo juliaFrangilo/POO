@@ -82,9 +82,10 @@ public class RelatorioBean {
 	    
 	    if (funcionarios.isEmpty()) {
 			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Nenhum Funcionário encontrado para essa pesquisa."));
+			    addMessage("msg1", new FacesMessage("Nenhum funcionário encontrado para essa pesquisa."));
 		 }
 	}	
+	// getters e setters
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -127,5 +128,4 @@ public class RelatorioBean {
 	public void setSalarioFinal(Double salarioFinal) {
 		this.salarioFinal = salarioFinal;
 	}
-	
 }

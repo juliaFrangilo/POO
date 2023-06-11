@@ -83,7 +83,6 @@ public class FilialBean {
 	
 }
 	public void atualizar() {
-		
 		endereco = enderecoService.mergeEndereco(endereco);
 		
 		filialService.merge(filial);
@@ -94,10 +93,8 @@ public class FilialBean {
 		atualizarLista();
 		gravar = true;
 	}
-	
-	
-	public void carregarFilial(Filial f) {
 		
+	public void carregarFilial(Filial f) {
 		filial = f;
 		endereco = f.getEndereco();
 		gravar = false;
@@ -188,5 +185,4 @@ public class FilialBean {
 	public void setTotalFuncionarios(Long totalFuncionarios) {
 		this.totalFuncionarios = totalFuncionarios;
 	}
-		
 }

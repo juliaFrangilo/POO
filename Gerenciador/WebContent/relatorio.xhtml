@@ -25,7 +25,8 @@
             <h:button outcome="index?faces-redirect=true" value="Página Inicial" />
              
         </h:panelGrid>
-          <h:messages infoClass="aviso" />
+           <h:messages style="color: red;" />
+           
             <h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
                 rendered="#{not empty relatorioBean.funcionarios}">
                 <h:column>

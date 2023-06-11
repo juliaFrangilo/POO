@@ -56,7 +56,7 @@ public class FuncionarioBean {
 	}
 
 	@PostConstruct
-	public void ordenaNomeFuncionario(){ //Ordena por nome Funcionario
+	public void ordenaNomeFuncionario(){ //Ordena por nome Funcionário
 		funcionarios =  funcionarioService.ordernaNomeFuncionario();
 		
 	}
@@ -74,10 +74,10 @@ public class FuncionarioBean {
 	public void gravar() {
 		if (funcionario.getSalario() == 0.0  ) {
 			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Campo salario obrigatorio."));
+			    addMessage("msg1", new FacesMessage("Campo salário obrigatório."));
 		 } else if(idFilial == 0){
 			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Selecione a filial do funcionario"));
+			    addMessage("msg1", new FacesMessage("Selecione a filial do funcionário"));
 		 }else {
 			// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 			    endereco = enderecoService.mergeEndereco(endereco);
@@ -95,10 +95,7 @@ public class FuncionarioBean {
 			    atualizarLista();
 			    idFilial = 0L;
 		 }
-
-	  	
-	  }
-	
+   }
 	
 	public void atualizar() {
 		// Verificar se houve tentativa de alterar a filial
@@ -147,7 +144,7 @@ public class FuncionarioBean {
 	            cpf.substring(9));
 	}
 	
-
+	// getters e setters
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -203,7 +200,5 @@ public class FuncionarioBean {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-
-   
 }
 

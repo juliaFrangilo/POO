@@ -56,6 +56,5 @@ public class Endereco {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	
 }

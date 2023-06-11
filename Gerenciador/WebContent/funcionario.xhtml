@@ -6,7 +6,8 @@
 
 <h:head></h:head> 
 <body>
-    <h:messages />
+
+   <h:messages style="color: red;" />
 	<h:form>
 	<h:outputLabel value="FUNCIONÁRIO" />
 		<h:panelGrid columns="2">
@@ -15,9 +16,9 @@
 			<h:outputLabel  value="Idade:" />
 			<h:inputText required="true" requiredMessage="Campo idade obrigatorio" value="#{funcionarioBean.funcionario.idade}" />
 			<h:outputLabel  value="CPF:" />
-			<h:inputText required="true" requiredMessage="Campo cpf obrigatorio" value="#{funcionarioBean.funcionario.cpf}" />
+			<h:inputText required="true" requiredMessage="Campo CPF obrigatorio" value="#{funcionarioBean.funcionario.cpf}" />
 			<h:outputLabel value="Salário:" />
-		    <h:inputText required="true" requiredMessage="Campo salario obrigatorio" value="#{funcionarioBean.funcionario.salario}"/>
+		    <h:inputText required="true" requiredMessage="Campo salário obrigatório" value="#{funcionarioBean.funcionario.salario}"/>
 			<h:outputLabel value="Filial:" for="filial"/>
 			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
@@ -28,15 +29,15 @@
 			<h:outputLabel value="Informações" />
 			<h:outputLabel value=" do Endereço" />
 			<h:outputLabel value="Rua:" />
-			<h:inputText required="true" requiredMessage="Campo rua obrigatorio" value="#{funcionarioBean.endereco.rua}" />
-			<h:outputLabel value="Numero:" />
-			<h:inputText required="true" requiredMessage="Campo numero obrigatorio" value="#{funcionarioBean.endereco.numero}" />
+			<h:inputText required="true" requiredMessage="Campo rua obrigatório" value="#{funcionarioBean.endereco.rua}" />
+			<h:outputLabel value="Número:" />
+			<h:inputText required="true" requiredMessage="Campo numero obrigatório" value="#{funcionarioBean.endereco.numero}" />
 			<h:outputLabel value="Bairro:" />
-			<h:inputText required="true" requiredMessage="Campo bairro obrigatorio" value="#{funcionarioBean.endereco.bairro}" />
+			<h:inputText required="true" requiredMessage="Campo bairro obrigatório" value="#{funcionarioBean.endereco.bairro}" />
 			<h:outputLabel value="Cidade:" />
-			<h:inputText required="true" requiredMessage="Campo cidade obrigatorio" value="#{funcionarioBean.endereco.cidade}" />
+			<h:inputText required="true" requiredMessage="Campo cidade obrigatório" value="#{funcionarioBean.endereco.cidade}" />
 			<h:outputLabel value="CEP:" />
-			<h:inputText required="true" requiredMessage="Campo cep obrigatorio" value="#{funcionarioBean.endereco.cep}" />
+			<h:inputText required="true" requiredMessage="Campo CEP obrigatório" value="#{funcionarioBean.endereco.cep}" />
 					
 			
 					
