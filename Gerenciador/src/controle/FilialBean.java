@@ -69,7 +69,6 @@ public class FilialBean {
 	 }
 	
 	public void gravar() {
-		System.out.println("estiveaquigra");
 		endereco = enderecoService.mergeEndereco(endereco); 
 	    filial.setEndereco(endereco);
 	    

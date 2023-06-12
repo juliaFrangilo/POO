@@ -54,12 +54,6 @@ public class FuncionarioBean {
 			    addMessage("msg1", new FacesMessage("Aviso!!! Funcionário não encontrado."));
 		 }
 	}
-
-	@PostConstruct
-	public void ordenaNomeFuncionario(){ //Ordena por nome Funcionário
-		funcionarios =  funcionarioService.ordernaNomeFuncionario();
-		
-	}
 	
 	private void atualizarLista() {
 		funcionarios = funcionarioService.ordernaNomeFuncionario();

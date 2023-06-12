@@ -53,10 +53,10 @@ public class RelatorioBean {
 	        funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial, salarioFinal, idFilial);
 	    }//filtra funcionarios por salario final 
 		else if (idFilial == 0 && salarioInicial == 0.0 && salarioFinal != 0.0) {
-	        funcionarios = funcionarioService.ordernaNomeFuncionario();
+	        funcionarios = funcionarioService.listarFuncionarioValorSalarialSemFilial(salarioInicial, salarioFinal);
 	    }//filtra funcionarios por salario final e por filial 
 		else if (idFilial != 0 && salarioInicial == 0.0 && salarioFinal != 0.0) {
-	        funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
+	        funcionarios = funcionarioService.listarFuncionarioValorSalarialComFilial(salarioInicial, salarioFinal, idFilial);
 	    }//sem filtro 
 		else if(salarioFinal == 0.0 && idFilial == 0) {
 			//verifica se o salario inicial foi preenchido e avisa que ele foi desconsiderado por que o final não foi preenchido
