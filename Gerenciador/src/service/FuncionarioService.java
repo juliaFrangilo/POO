@@ -141,4 +141,26 @@ public class FuncionarioService extends GenericService<Funcionario>{
 		
 		return resultado;	
 	}
+	
+	public List<Funcionario> listarFuncionarioPorFilialOrdemSalario(Long idFilial){
+		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+		final Root<Funcionario> rootFuncionario = cQuery.from(Funcionario.class);
+		
+		final Expression<String> expSalario = rootFuncionario.get("salario");
+		
+		cQuery.select(rootFuncionario);
+		if ( idFilial != 0L ) {
+			cQuery.where(cBuilder.equal(rootFuncionario.get("filial").get("id"),idFilial));
+		}
+		
+		cQuery.orderBy(cBuilder.desc(expSalario));
+		
+		
+		List<Funcionario> resultado = 
+				getEntityManager().createQuery(cQuery).getResultList();
+		
+		return resultado;	
+	}
+	
 }

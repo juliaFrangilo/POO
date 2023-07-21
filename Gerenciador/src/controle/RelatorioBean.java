@@ -64,7 +64,7 @@ public class RelatorioBean {
 	    		FacesContext.getCurrentInstance().
 			    addMessage("msg1", new FacesMessage("O filtro salarial foi desconsiderado por que o valor final não foi definido."));
 	    	}
-	    	funcionarios = funcionarioService.ordernaNomeFuncionario();
+	    	funcionarios = funcionarioService.listarFuncionarioPorFilialOrdemSalario(0L);
 	    }//sem filtro 
 		else if(salarioFinal == 0.0 && idFilial != 0) {
 			//verifica se o salario inicial foi preenchido e avisa que ele foi desconsiderado por que o final não foi preenchido
@@ -73,7 +73,7 @@ public class RelatorioBean {
 			    addMessage("msg1", new FacesMessage("O filtro salarial foi desconsiderado por que o valor final não foi definido."));
 	    	}
 	    	
-	    	funcionarios = funcionarioService.listarFuncionarioPorFilial(idFilial);
+	    	funcionarios = funcionarioService.listarFuncionarioPorFilialOrdemSalario(idFilial);
 	    }
 
 	    salarioInicial = null;
