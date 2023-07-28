@@ -2,16 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
-
-<h:head></h:head> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 <body> 
-	<h:form>
-		<h:panelGrid columns="1">
-		<h:commandLink action="filial?faces-redirect=true" value="Gerenciar Filial" />
-		<h:commandLink action="funcionario?faces-redirect=true" value="Gerenciar Funcionários" />
-		<h:commandLink action="relatorio?faces-redirect=true" value="Gerar Relatórios" />
-	</h:panelGrid>
-	</h:form>
+<ui:composition template="template.xhtml">
+	<ui:define name="titulo">Bem Vindo ao Sistema</ui:define>
+	<ui:define name="conteudo">
+		
+	</ui:define>
+
+</ui:composition>
 </body> 
 </html>

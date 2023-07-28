@@ -2,118 +2,112 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="template.xhtml">
+<ui:define name="titulo">Gerenciamento de Funcionários</ui:define>
 
 <h:head></h:head> 
-<body>
 
-   <h:messages style="color: red;" />
-	<h:form>
-	<h:outputLabel value="FUNCIONÁRIO" />
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Nome:" />
-			<h:inputText required="true" requiredMessage="Campo nome obrigatorio" value="#{funcionarioBean.funcionario.nome}" />
-			<h:outputLabel  value="Idade:" />
-			<h:inputText required="true" requiredMessage="Campo idade obrigatorio" value="#{funcionarioBean.funcionario.idade}" />
-			<h:outputLabel  value="CPF:" />
-			<h:inputText required="true" requiredMessage="Campo CPF obrigatorio" value="#{funcionarioBean.funcionario.cpf}" />
-			<h:outputLabel value="Salário:" />
-		    <h:inputText required="true" requiredMessage="Campo salário obrigatório" value="#{funcionarioBean.funcionario.salario}"/>
-			<h:outputLabel value="Filial:" for="filial"/>
-			<h:selectOneMenu value="#{funcionarioBean.idFilial}">
+   <ui:define name="conteudo"> 
+   <p:growl id="msg" life="5000"/>
+   
+	<h:form id="formFuncionario">
+	
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome:" for="@next" />
+			<p:inputText required="true" value="#{funcionarioBean.funcionario.nome}" />
+			<p:outputLabel  value="Idade:" for="@next"/>
+			<p:inputText required="true" value="#{funcionarioBean.funcionario.idade}" />
+			<p:outputLabel  value="CPF:" for="@next"/>
+			<p:inputText required="true"  value="#{funcionarioBean.funcionario.cpf}" />
+			<p:outputLabel value="Cargo:"  for="@next"/>
+			<p:selectOneMenu value="#{funcionarioBean.funcionario.cargo}">
+			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
+			<f:selectItems  value="#{funcionarioBean.funcionario}" var="filialAtual"
+					itemLabel="#{filialAtual.cargo}" itemValue="#{filialAtual.cargo}"/>
+			</p:selectOneMenu>	
+			<p:outputLabel value="Salário:" for="@next"/>
+		    <p:inputText required="true" value="#{funcionarioBean.funcionario.salario}"/>
+			<p:outputLabel value="Filial:"  for="@next"/>
+			<p:selectOneMenu value="#{funcionarioBean.idFilial}">
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
 			<f:selectItems  value="#{funcionarioBean.filiais}" var="filialAtual"
 					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
-			</h:selectOneMenu>
+			</p:selectOneMenu>	
 			
-			<h:outputLabel value="Informações" />
-			<h:outputLabel value=" do Endereço" />
-			<h:outputLabel value="Rua:" />
-			<h:inputText required="true" requiredMessage="Campo rua obrigatório" value="#{funcionarioBean.endereco.rua}" />
-			<h:outputLabel value="Número:" />
-			<h:inputText required="true" requiredMessage="Campo numero obrigatório" value="#{funcionarioBean.endereco.numero}" />
-			<h:outputLabel value="Bairro:" />
-			<h:inputText required="true" requiredMessage="Campo bairro obrigatório" value="#{funcionarioBean.endereco.bairro}" />
-			<h:outputLabel value="Cidade:" />
-			<h:inputText required="true" requiredMessage="Campo cidade obrigatório" value="#{funcionarioBean.endereco.cidade}" />
-			<h:outputLabel value="CEP:" />
-			<h:inputText required="true" requiredMessage="Campo CEP obrigatório" value="#{funcionarioBean.endereco.cep}" />
-					
-			
-					
-			<h:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
-				rendered="#{funcionarioBean.gravar}" />
-			<h:commandButton action="#{funcionarioBean.atualizar()}"
-				value="Atualizar" rendered="#{!funcionarioBean.gravar}" />
-			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
-		</h:panelGrid>
-	</h:form>
-
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Nome:" />
-			<h:inputText value="#{funcionarioBean.texto}" />
-			<h:commandButton action="#{funcionarioBean.pesquisar()}"
-				value="Pesquisar" />
-		</h:panelGrid>
+			<p:outputLabel value="Informações" />
+			<p:outputLabel value=" do Endereço" />
+			<p:outputLabel value="Rua:" for="@next" />
+			<p:inputText required="true" value="#{funcionarioBean.endereco.rua}" />
+			<p:outputLabel value="Número:" for="@next"/>
+			<p:inputText required="true" value="#{funcionarioBean.endereco.numero}" />
+			<p:outputLabel value="Bairro:" for="@next" />
+			<p:inputText required="true" value="#{funcionarioBean.endereco.bairro}" />
+			<p:outputLabel value="Cidade:" for="@next"/>
+			<p:inputText required="true" value="#{funcionarioBean.endereco.cidade}" />
+			<p:outputLabel value="CEP:" for="@next"/>
+			<p:inputText required="true" value="#{funcionarioBean.endereco.cep}" />
+			<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
+				process="@form" update="@form,msg,formEdit"/>
 		
-		<h:dataTable value="#{funcionarioBean.funcionarios}" var="funcAtual" border="1">
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{funcAtual.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Idade</f:facet>
-				<h:outputText value="#{funcAtual.idade}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">CPF</f:facet>
-				<h:outputText value= "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Salário</f:facet>
-				<h:outputText value="#{funcAtual.salario}">
-					<f:convertNumber type="currency" currencySymbol="R$" />
-				</h:outputText>
-			</h:column>
-				<h:column>
-				<f:facet name="header">Rua</f:facet>
-				<h:outputText value="#{funcAtual.endereco.rua}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Número]</f:facet>
-				<h:outputText value="#{funcAtual.endereco.numero}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Bairro</f:facet>
-				<h:outputText value="#{funcAtual.endereco.bairro}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Cidade</f:facet>
-				<h:outputText value="#{funcAtual.endereco.cidade}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">CEP</f:facet>
-				<h:outputText value="#{funcAtual.endereco.cep}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nome Filial</f:facet>
-				<h:outputText value="#{funcAtual.filial.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Cidade Filial</f:facet>
-				<h:outputText value="#{funcAtual.filial.endereco.cidade}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Ações</f:facet>
-				<h:commandButton action="#{funcionarioBean.carregarFuncionario(funcAtual)}"
-					value="Editar" />
-				<h:commandButton action="#{funcionarioBean.excluirFuncionario(funcAtual)}"
-					value="Excluir" />
-			</h:column>
-
-		</h:dataTable>
+		</p:panelGrid>
 	</h:form>
-
-</body> 
+	<h:form >
+		<p:panelGrid columns="3">
+			<p:outputLabel value="Nome:" />
+			<p:inputText value="#{funcionarioBean.texto}" />
+			<p:commandButton action="#{funcionarioBean.pesquisar()}" value="Pesquisar"
+			    process="@form" update="@form, formEdit"/>
+		</p:panelGrid>
+	</h:form>
+   <h:form id="formEdit">
+		<p:dataTable value="#{funcionarioBean.funcionarios}" var="funcAtual" border="1">
+			<p:column headerText="Nome">
+				<h:outputText value="#{funcAtual.nome}" />
+			</p:column>
+			<p:column headerText="Idade">
+				<h:outputText value="#{funcAtual.idade}" />
+			</p:column>
+			<p:column headerText="CPF">
+				<h:outputText value= "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
+		     </p:column>
+			<p:column headerText="Salário">
+				<h:outputText value="#{funcAtual.salario}" >
+				<f:convertNumber type="currency" currencySymbol="R$"/>
+			  </h:outputText>			
+			</p:column>
+			<p:column headerText="Rua">
+				<h:outputText value="#{funcAtual.endereco.rua}" />
+			</p:column>
+				<p:column headerText="Número">
+				<h:outputText value="#{funcAtual.endereco.numero}" />
+			</p:column>
+				<p:column headerText="Bairro">
+				<h:outputText value="#{funcAtual.endereco.bairro}" />
+			</p:column>
+				<p:column headerText="Cidade">
+				<h:outputText value="#{funcAtual.endereco.cidade}" />
+			</p:column>
+				<p:column headerText="CEP">
+				<h:outputText value="#{funcAtual.endereco.cep}" />
+			</p:column>
+				<p:column headerText="Nome Filial">
+				<h:outputText value="#{funcAtual.filial.nome}" />
+			</p:column>
+		     <p:column headerText="Cidade Filial">
+				<h:outputText value="#{funcAtual.filial.endereco.cidade}" />
+			</p:column>
+			<p:column headerText="Ações">
+			<p:commandButton action="#{funcionarioBean.carregarFuncionario(funcAtual)}" value="Editar" 
+							process="@form" update=":formFuncionario"/>			 				
+			<p:commandButton action="#{funcionarioBean.excluirFuncionario(funcAtual)}" value="Excluir" 
+							process="@form" update="@form"/>
+		</p:column>	
+      </p:dataTable>
+	</h:form> 
+  </ui:define>
+ </ui:composition> 
 </html>

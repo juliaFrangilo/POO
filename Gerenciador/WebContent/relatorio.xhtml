@@ -2,52 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
+
+<ui:composition template="template.xhtml">
+<ui:define name="titulo">Emissão de Relatório</ui:define>
+      
+
+<h:head></h:head>
+ <ui:define name="conteudo"> 
+ <p:growl id="msg" life="5000"/>
+ 
     <h:form>
-        <h:outputLabel value="EMISSÃO DE RELATÓRIO" />
-        <h:panelGrid columns="2">
-            <h:outputLabel value="Valor Inicial" />
-            <h:inputText value="#{relatorioBean.salarioInicial}" />
-            <h:outputLabel value="Valor Final" />
-            <h:inputText value="#{relatorioBean.salarioFinal}" />
-            <h:outputLabel value="Seleciona Filial" />
-            <h:selectOneMenu value="#{relatorioBean.idFilial}" requiredMessage="Campo cnpj obrigatorio">
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Valor Inicial" for="@next" />
+            <p:inputText value="#{relatorioBean.salarioInicial}" />
+            <p:outputLabel value="Valor Final" for="@next"/>
+            <p:inputText value="#{relatorioBean.salarioFinal}" />
+            <p:outputLabel value="Seleciona Filial"  for="@next"/>
+            <p:selectOneMenu value="#{relatorioBean.idFilial}" >
                 <f:selectItem itemLabel="Todas as filiais" itemValue="0" />
                 <f:selectItems value="#{relatorioBean.filiais}" var="filialAtual"
-                    itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}" />
-            </h:selectOneMenu>
+                   itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}" />
+            </p:selectOneMenu>
 
-            <h:commandButton action="#{relatorioBean.gerarRelatorio}" value="Gerar Relatório" 
-                update="dadosRelatorio" />
-            <h:button outcome="index?faces-redirect=true" value="Página Inicial" />
-             
-        </h:panelGrid>
-           <h:messages style="color: red;" />
-           
-            <h:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
+            <p:commandButton action="#{relatorioBean.gerarRelatorio}" value="Gerar Relatório" 
+ 				process="@form" update="@form"/>  
+        </p:panelGrid>
+          <h:messages style="color: red;" />
+            <p:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
                 rendered="#{not empty relatorioBean.funcionarios}">
-                <h:column>
-				<f:facet name="header">Nome</f:facet>
+            <p:column headerText="Nome">
 				<h:outputText value="#{funcAtual.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">CPF</f:facet>
-				<h:outputText value = "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Salário</f:facet>
-				<h:outputText value="#{funcAtual.salario}">
-					<f:convertNumber type="currency" currencySymbol="R$" />
-				</h:outputText>
-			</h:column>
-			<h:column>
-        	   <f:facet name="header">Nome Filial</f:facet>
-        	  <h:outputText value="#{funcAtual.filial.nome}" />
-   			 </h:column>
-		</h:dataTable>
-    </h:form>
-</body> 
+			</p:column>
+			<p:column headerText="CPF">
+				<h:outputText value= "#{funcionarioBean.formatarCPF(funcAtual.cpf)}" />
+		     </p:column>
+			 <p:column headerText="Salário">
+				<h:outputText value="#{funcAtual.salario}" >
+				<f:convertNumber type="currency" currencySymbol="R$"/>
+			  </h:outputText>			
+			</p:column>
+			 <p:column headerText="Nome Filial">
+				<h:outputText value="#{funcAtual.filial.nome}" />
+			</p:column>
+		</p:dataTable>
+       </h:form>
+     </ui:define>
+   </ui:composition>
 </html>

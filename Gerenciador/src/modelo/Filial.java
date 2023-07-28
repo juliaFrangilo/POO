@@ -19,14 +19,13 @@ public class Filial {
     private String cnpj;
 	
 	@OneToOne
-    
-	private Endereco endereco;
+    private Endereco endereco;
 	
 	@Transient
 	private Long totalFuncionarios = 0L;
 	
-	public Filial() {}
 	
+	public Filial() {}
 	
 	public String getNome() {
 		return nome;

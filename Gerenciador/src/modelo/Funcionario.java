@@ -17,9 +17,13 @@ public class Funcionario {
 	private Integer idade;
 	private String cpf;
 	private double salario;
+	private Cargo cargo;
 	
 	@ManyToOne
 	private Filial filial;
+	
+	@ManyToOne
+	private Pagamento pagamento;
 	
 	@OneToOne
 	private Endereco endereco;
@@ -84,6 +88,14 @@ public class Funcionario {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 
 }

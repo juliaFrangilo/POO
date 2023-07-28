@@ -2,85 +2,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="template.xhtml">
+<ui:define name="titulo">Gerenciamento de Filiais</ui:define>
 
 <h:head></h:head>
-<body>
-
-	<h:messages style="color: red;" />
-	<h:form>
+    
+    <ui:define name="conteudo"> 
+	   <p:growl id="msg" life="5000"/>
+	<h:form id="formFilial">
 	
-	 <h:outputLabel value="FILIAL" />
-	 
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Nome:" />
-			<h:inputText  required="true" requiredMessage="Campo nome obrigatório" value="#{filialBean.filial.nome}" />
-			<h:outputLabel value="CNPJ:" />
-			<h:inputText  required="true" requiredMessage="Campo CNPJ obrigatório" value="#{filialBean.filial.cnpj}"  />
-			<h:outputLabel value="Informações" />
-			<h:outputLabel value=" do Endereço" />
-			<h:outputLabel value="Rua:" />
-			<h:inputText required="true" requiredMessage="Campo rua obrigatório" value="#{filialBean.endereco.rua}"  />
-			<h:outputLabel value="Número:" />
-			<h:inputText required="true" requiredMessage="Campo número obrigatório"  value="#{filialBean.endereco.numero}"  />
-			<h:outputLabel value="Bairro:" />
-			<h:inputText required="true" requiredMessage="Campo bairro obrigatório" value="#{filialBean.endereco.bairro}" />
-			<h:outputLabel value="Cidade:" />
-			<h:inputText required="true" requiredMessage="Campo cidade obrigatório" value="#{filialBean.endereco.cidade}"  />
-			<h:outputLabel value="CEP:" />
-			<h:inputText required="true" requiredMessage="Campo CEP obrigatório" value="#{filialBean.endereco.cep}" />
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome:" for="@next" />
+			<p:inputText  required="true" value="#{filialBean.filial.nome}" />
+			<p:outputLabel value="CNPJ:" for="@next" />
+			<p:inputText  required="true" value="#{filialBean.filial.cnpj}"  />
+			<p:outputLabel value="Informações" />
+			<p:outputLabel value=" do Endereço" />
+			<p:outputLabel value="Rua:" for="@next" />
+			<p:inputText required="true" value="#{filialBean.endereco.rua}"  />
+			<p:outputLabel value="Número:" for="@next"/>
+			<p:inputText required="true" value="#{filialBean.endereco.numero}"  />
+			<p:outputLabel value="Bairro:" for="@next" />
+			<p:inputText required="true" value="#{filialBean.endereco.bairro}" />
+			<p:outputLabel value="Cidade:" for="@next"/>
+			<p:inputText required="true" value="#{filialBean.endereco.cidade}"  />
+			<p:outputLabel value="CEP:" for="@next"/>
+			<p:inputText required="true" value="#{filialBean.endereco.cep}" />
 	
-			<h:commandButton action="#{filialBean.gravar()}" value="Gravar"
-				rendered="#{filialBean.gravar}"/>
-			<h:commandButton action="#{filialBean.atualizar()}"
-				value="Atualizar" rendered="#{!filialBean.gravar}" />
-			<h:button outcome="index?faces-redirect=true" value="Página Inicial"></h:button>
-		</h:panelGrid>
+			<p:commandButton action="#{filialBean.gravar()}" value="Gravar"
+			process="@form" update="@form,msg,formEdit"/>
+		</p:panelGrid>
 	   </h:form>
 
-	   <h:form>
-		<h:dataTable value="#{filialBean.filiais}" var="filialAtual" border="1">
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
+	   <h:form id="formEdit">
+		<p:dataTable value="#{filialBean.filiais}" var="filialAtual" border="1">
+		   <p:column headerText="Nome">
 				<h:outputText value="#{filialAtual.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">CNPJ</f:facet>
-				<h:outputText value="#{filialBean.formatarCNPJ(filialAtual.cnpj)}"/>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Rua</f:facet>
+		   </p:column>
+		   <p:column headerText="CNPJ">
+				<h:outputText value= "#{filialBean.formatarCNPJ(filialAtual.cnpj)}" />
+			</p:column>
+			<p:column headerText="Rua">
 				<h:outputText value="#{filialAtual.endereco.rua}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Número</f:facet>
+			</p:column>
+			<p:column headerText="Número">
 				<h:outputText value="#{filialAtual.endereco.numero}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Bairro</f:facet>
+			</p:column>
+			<p:column headerText="Bairro">
 				<h:outputText value="#{filialAtual.endereco.bairro}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Cidade</f:facet>
+			</p:column>
+		    	<p:column headerText="Cidade">
 				<h:outputText value="#{filialAtual.endereco.cidade}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">CEP</f:facet>
+			</p:column>
+		   	<p:column headerText="CEP">
 				<h:outputText value="#{filialAtual.endereco.cep}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Funcionarios</f:facet>
+			</p:column>
+				<p:column headerText="Funcionários">
 				<h:outputText value="#{filialAtual.totalFuncionarios}" />
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Ações</f:facet>
-				<h:commandButton action="#{filialBean.carregarFilial(filialAtual)}"
-					value="Editar" />
-			</h:column>
-
-		</h:dataTable>
-	</h:form>
-		
-
-</body>
+				<p:commandButton action="#{filialBean.carregarFilial(filialAtual)}" value="Editar"
+				process="@form" update=":formFilial"/>	
+			</p:column>
+		</p:dataTable>
+	  </h:form>
+    </ui:define>
+  </ui:composition> 
 </html>
