@@ -42,8 +42,6 @@ public class RelatorioBean {
 		filiais = filialService.listAll();
 	}
 	public void gerarRelatorio() {
-		System.out.println(salarioInicial);
-		System.out.println(salarioFinal);
 		
 		//filtra funcionarios por salario
 		if (idFilial == 0 && salarioInicial != 0.0 && salarioFinal != 0.0) {

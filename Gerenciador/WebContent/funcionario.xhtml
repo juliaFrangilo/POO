@@ -25,9 +25,9 @@
 			<p:inputText required="true"  value="#{funcionarioBean.funcionario.cpf}" />
 			<p:outputLabel value="Cargo:"  for="@next"/>
 			<p:selectOneMenu value="#{funcionarioBean.funcionario.cargo}">
-			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
-			<f:selectItems  value="#{funcionarioBean.funcionario}" var="filialAtual"
-					itemLabel="#{filialAtual.cargo}" itemValue="#{filialAtual.cargo}"/>
+			<f:selectItem itemLabel="Selecione..." itemValue=""/>
+			<f:selectItems  value="#{funcionarioBean.cargos}" var="cargoAtual"
+					itemLabel="#{cargoAtual.descricao}" itemValue="#{cargoAtual}"/>
 			</p:selectOneMenu>	
 			<p:outputLabel value="Salário:" for="@next"/>
 		    <p:inputText required="true" value="#{funcionarioBean.funcionario.salario}"/>
@@ -65,7 +65,7 @@
 	</h:form>
    <h:form id="formEdit">
 		<p:dataTable value="#{funcionarioBean.funcionarios}" var="funcAtual" border="1">
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" style="width: 80px;">
 				<h:outputText value="#{funcAtual.nome}" />
 			</p:column>
 			<p:column headerText="Idade">
@@ -78,6 +78,9 @@
 				<h:outputText value="#{funcAtual.salario}" >
 				<f:convertNumber type="currency" currencySymbol="R$"/>
 			  </h:outputText>			
+			</p:column>
+			<p:column headerText="Cargo">
+				<h:outputText value="#{funcAtual.cargo}" />
 			</p:column>
 			<p:column headerText="Rua">
 				<h:outputText value="#{funcAtual.endereco.rua}" />

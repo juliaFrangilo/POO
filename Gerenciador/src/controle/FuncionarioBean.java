@@ -2,6 +2,7 @@ package controle;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-
+import modelo.Cargo;
 import modelo.Endereco;
 import modelo.Filial;
 import modelo.Funcionario;
@@ -37,6 +38,7 @@ public class FuncionarioBean {
 	
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 	private List<Filial> filiais = new ArrayList<Filial>();
+	private List<Cargo> cargos;
 
 	
 	private Long idFilial;
@@ -63,6 +65,8 @@ public class FuncionarioBean {
 	public void iniciar() {
 		atualizarLista();
 		filiais = filialService.listAll();
+		cargos = Arrays.asList(Cargo.values());
+		
 	}
 
 	public void gravar() {
@@ -72,7 +76,11 @@ public class FuncionarioBean {
 		 } else if(idFilial == 0){
 			 FacesContext.getCurrentInstance().
 			    addMessage("msg1", new FacesMessage("Selecione a filial do funcionário"));
-		 }else {
+		 }else if (funcionario.getCargo() == null) {
+			 FacesContext.getCurrentInstance().
+                addMessage("msg1", new FacesMessage("Selecione o cargo do funcionário."));
+			 return;
+		 }else{
 			// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 			    endereco = enderecoService.mergeEndereco(endereco);
 			    funcionario.setEndereco(endereco);
@@ -119,6 +127,14 @@ public class FuncionarioBean {
 	    gravar = false;
 	 }
 	
+	public List<Cargo> getCargos() {
+		return cargos;
+	}
+
+	public void setCargos(List<Cargo> cargos) {
+		this.cargos = cargos;
+	}
+
 	public void excluirFuncionario(Funcionario f) {
 		funcionarioService.remove(f);
 		atualizarLista();

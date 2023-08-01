@@ -20,9 +20,6 @@ public class Pagamento {
 	private int anoReferente;
 	
 	
-	
-	
-	
 	public Pagamento () {
 		
 	}

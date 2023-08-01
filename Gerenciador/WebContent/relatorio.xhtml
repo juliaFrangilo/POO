@@ -28,7 +28,7 @@
             </p:selectOneMenu>
 
             <p:commandButton action="#{relatorioBean.gerarRelatorio}" value="Gerar Relatório" 
- 				process="@form" update="@form"/>  
+ 				process="@form" update="@form,msg"/>  
         </p:panelGrid>
           <h:messages style="color: red;" />
             <p:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
