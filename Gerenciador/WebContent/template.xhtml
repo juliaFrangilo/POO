@@ -22,7 +22,12 @@
 				<p:menuitem action="funcionario?faces-redirect=true" value="Funcionários"/>	
 				<p:menuitem action="pagamento?faces-redirect=true" value="Pagamento"/>						
 			</p:submenu>
-			<p:menuitem action="relatorio?faces-redirect=true" value="Relatórios"/>
+			<p:submenu label="Relatórios">
+				<p:menuitem action="relatorio?faces-redirect=true" value="Relatórios de funcionários"/>
+				<p:menuitem action="relatorioPagamentoFunc?faces-redirect=true" value="Relatórios de funcionários"/>
+				<p:menuitem action="relatorioPagamentoMensal?faces-redirect=true" value="Relatórios de funcionários"/>
+			</p:submenu>
+			
  		</p:menubar>
 	</h:form>
 	</div>
