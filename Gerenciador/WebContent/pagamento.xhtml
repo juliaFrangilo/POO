@@ -13,10 +13,34 @@
 
   <ui:define name="conteudo"> 
   <p:growl id="msg" life="5000"/>
-
-
-
-
+	
+	<h:form id="formPagamento">
+		<p:panelGrid columns="2">
+		<p:outputLabel value="Funcionario:"  for="@next"/>
+		<p:selectOneMenu value="#{pagamentoBean.funcionarios}">
+			<f:selectItem itemLabel="Selecione..." itemValue=""/>
+			<f:selectItems  value="#{pagamentoBean.funcionarios}" var="funcAtual"
+					itemLabel="#{funcAtual.nome}" itemValue="#{funcAtual.id}"/>
+			
+		</p:selectOneMenu>
+		<p:outputLabel value="Valor:" for="@next" />
+			<p:inputText required="true" value="#{func}" />
+		<p:outputLabel  value="Idade:" for="@next"/>
+		<p:inputText required="true" value="#{funcionarioBean.funcionario.idade}" />
+		<p:outputLabel  value="CPF:" for="@next"/>
+		<p:inputText required="true"  value="#{funcionarioBean.funcionario.cpf}" />	
+		<p:outputLabel value="Salário:" for="@next"/>
+	    <p:inputText required="true" value="#{funcionarioBean.funcionario.salario}"/>
+		<p:outputLabel value="Filial:"  for="@next"/>
+		<p:selectOneMenu value="#{funcionarioBean.idFilial}">
+		<f:selectItem itemLabel="Selecione..." itemValue="0"/>
+		<f:selectItems  value="#{funcionarioBean.filiais}" var="filialAtual"
+				itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
+		</p:selectOneMenu>
+		<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
+				process="@form" update="@form,msg,formPagamento"/>	
+	</p:panelGrid>
+	</h:form>
    </ui:define>
  </ui:composition> 
 </html>
