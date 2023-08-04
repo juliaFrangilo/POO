@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -16,7 +15,7 @@ public class Pagamento {
 	
 	private Double valor;
 	private Double bonus;
-	private Date dataPagemento;
+	private Date dataPagamento;
 	private int mesReferente;
 	private int anoReferente;
 	
@@ -42,11 +41,11 @@ public class Pagamento {
 	public void setBonus(Double bonus) {
 		this.bonus = bonus;
 	}
-	public Date getDataPagemento() {
-		return dataPagemento;
+	public Date getDataPagamento() {
+		return dataPagamento;
 	}
-	public void setDataPagemento(Date dataPagemento) {
-		this.dataPagemento = dataPagemento;
+	public void setDataPagamento(Date dataPagemento) {
+		this.dataPagamento = dataPagemento;
 	}
 	public int getMesReferente() {
 		return mesReferente;

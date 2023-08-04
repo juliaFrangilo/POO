@@ -17,20 +17,26 @@
 	<h:form id="formPagamento">
 		<p:panelGrid columns="2">
 		<p:outputLabel value="Funcionario:"  for="@next"/>
-		<p:selectOneMenu value="#{pagamentoBean.funcionario}">
-			<f:selectItem itemLabel="Selecione..." itemValue=""/>
+		<p:selectOneMenu value="#{pagamentoBean.funcionarios}">
+			<f:selectItem itemLabel="Selecione..." itemValue="#{null}"/>
 			<f:selectItems  value="#{pagamentoBean.funcionarios}" var="funcAtual"
-					itemLabel="#{funcAtual.nome}" itemValue="#{funcAtual.id}"/>
-			<p:ajax update="valor" listener="#{pagamentoBean.atualizarValorPagamento}" />	
+					itemLabel="#{funcAtual.nome}" itemValue="#{funcAtual}"/>
+			
+		     <p:ajax listener="#{pagamentoBean.atualizarValorPagamento()}" update="valor"/>
+		
 		</p:selectOneMenu>
-		<p:outputLabel value="Valor:" for="@next" />
-		<p:inputText id="valor" required="true" value="#{pagamentoBean.pagamento.valor}" />
-		<p:outputLabel  value="Bonus:" for="@next"/>
-		<p:inputText required="true" value="#{funcionarioBean.funcionario.idade}" />
-		<p:outputLabel  value="CPF:" for="@next"/>
-		<p:inputText required="true"  value="#{funcionarioBean.funcionario.cpf}" />	
-		<p:outputLabel value="Salário:" for="@next"/>
-	    <p:inputText required="true" value="#{funcionarioBean.funcionario.salario}"/>
+		
+		
+		<p:outputLabel value="Valor:" for="@next"/>
+		<p:inputText id="valor" disabled="true" value="#{pagamentoBean.pagamento.valor}"/>
+		<p:outputLabel value="Bônus" for="@next"/>
+	    <p:inputText id="bonus" disabled="true" value="#{pagamentoBean.pagamento.bonus}"/>
+	    <p:outputLabel value="Data Pagamento:" for="@next"/>
+	    <p:inputText required="true" value="#{pagamentoBean.pagamento.dataPagamento}"/>
+	     <p:outputLabel value="Mês Referente:" for="@next"/>
+	    <p:inputText required="true" value="#{pagamentoBean.pagamento.mesReferente}" />
+	     <p:outputLabel value="Ano Referente:" for="@next"/>
+	    <p:inputText required="true" value="#{pagamentoBean.pagamento.anoReferente}" />
 		<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
 				process="@form" update="@form,msg,formPagamento"/>	
 	</p:panelGrid>
