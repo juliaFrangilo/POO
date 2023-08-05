@@ -17,12 +17,13 @@
 	<h:form id="formPagamento">
 		<p:panelGrid columns="2">
 		<p:outputLabel value="Funcionario:"  for="@next"/>
-		<p:selectOneMenu id ="funcionario" value="#{pagamentoBean.func}" >
-			<f:selectItem itemLabel="Selecione..." itemValue="#{null}"/>
+		<p:selectOneMenu value="#{pagamentoBean.idFunfionario}" >
+			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
 			<f:selectItems  value="#{pagamentoBean.funcionarios}" var="funcAtual"
-					itemLabel="#{funcAtual.nome}" itemValue="#{funcAtual}"/>
+					itemLabel="#{funcAtual.nome}" itemValue="#{funcAtual.id}"/>
 			
-		     <p:ajax listener="#{pagamentoBean.atualizarValorPagamento()}" update="valor"/>
+		     <p:ajax listener="#{pagamentoBean.selecionaFuncionario()}" update="valor"/>
+		     <p:ajax listener="#{pagamentoBean.geraBonus()}" update="bonus"/>
 		
 		</p:selectOneMenu>
 		
@@ -30,7 +31,7 @@
 		<p:outputLabel value="Valor:" for="@next"/>
 		<p:inputText id="valor" disabled="true" value="#{pagamentoBean.valor}"/>
 		<p:outputLabel value="Bônus" for="@next"/>
-	    <p:inputText id="bonus" disabled="true" value="#{pagamentoBean.pagamento.bonus}"/>
+	    <p:inputText id="bonus" disabled="true" value="#{pagamentoBean.bonus}"/>
 	    <p:outputLabel value="Data Pagamento:" for="@next"/>
 	    <p:inputText required="true" value="#{pagamentoBean.pagamento.dataPagamento}"/>
 	     <p:outputLabel value="Mês Referente:" for="@next"/>
@@ -38,10 +39,33 @@
 	     <p:outputLabel value="Ano Referente:" for="@next"/>
 	    <p:inputText required="true" value="#{pagamentoBean.pagamento.anoReferente}" />
 	    
-		<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
-				process="@form" update="@form,msg,formPagamento"/>	
+		<p:commandButton action="#{pagamentoBean.gravar()}" value="Gravar"
+				process="@form" update="@form,msg,formEdit"/>	
 	</p:panelGrid>
 	</h:form>
+	<h:form id="formEdit">
+		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1">
+			<p:column headerText="Valor" >
+				<h:outputText value="#{pagAtual.valor}" />
+			</p:column>
+			<p:column headerText="Bonus">
+				<h:outputText value="#{pagAtual.bonus}" />
+			</p:column>
+			<p:column headerText="Data Pagamento">
+				<h:outputText value= "#{pagAtual.dataPagamento}" />
+		     </p:column>	
+		     <p:column headerText="Mes Referente">
+				<h:outputText value="#{pagAtual.mesReferente}" />
+			</p:column>
+			<p:column headerText="Ano Referente">
+				<h:outputText value= "#{pagAtual.anoReferente}" />
+		     </p:column>
+		    <p:column headerText="Ações">
+		    	<p:commandButton action="#{pagamentoBean.excluirPagamento(pagAtual)}" value="Excluir" 
+							process="@form" update="@form"/>
+		    </p:column>		 						
+      </p:dataTable>
+	</h:form> 
    </ui:define>
  </ui:composition> 
 </html>

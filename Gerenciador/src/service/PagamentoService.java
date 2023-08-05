@@ -1,10 +1,12 @@
 package service;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import modelo.Pagamento;
 
+@Stateless
 public class PagamentoService extends GenericService<Pagamento>{
 
 	public PagamentoService() {
@@ -15,11 +17,9 @@ public class PagamentoService extends GenericService<Pagamento>{
     private EntityManager entityManager;
 	
 	
-	public Pagamento mergeFilial(Pagamento pagamento){
+	public Pagamento mergePagamento(Pagamento pagamento){
 		return getEntityManager().merge(pagamento);			
 	}	
-	
-
 	
 	public EntityManager getEntityManager() {
 		return entityManager;
