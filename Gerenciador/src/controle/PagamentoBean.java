@@ -2,18 +2,23 @@ package controle;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+
 import modelo.Funcionario;
 import modelo.Pagamento;
 import service.FuncionarioService;
 
+
+
 @ViewScoped
 @ManagedBean
 public class PagamentoBean {
+	
 	@EJB
 	private FuncionarioService funcionarioService;
 	
@@ -21,8 +26,13 @@ public class PagamentoBean {
 	private Pagamento pagamento = new Pagamento();
 	
 	private Funcionario funcionario = new Funcionario();
+	private Funcionario func;
 	private double salarioFuncionario;
-	private double bonus;
+	private double bonus;	
+	private double valor;
+	private boolean gravar;
+	
+	
 	 
 	
 	@PostConstruct
@@ -31,33 +41,21 @@ public class PagamentoBean {
 		
 	}
 	
+	
+	
+	
 	public void atualizarValorPagamento() {
 		
-        if (funcionario != null) {
-            salarioFuncionario = funcionario.getSalario();
+        if (func != null) {
+        	 salarioFuncionario = func.getSalario();
           
-            switch (funcionario.getCargo()) {
-            case COMUM:
-                bonus = salarioFuncionario * 0.1;
-                break;
-            case COORDENADOR:
-                bonus = salarioFuncionario * 0.15;
-                break;
-            case GERENTE:
-                bonus = salarioFuncionario * 0.2;
-                break;
-            default:
-                bonus = 0.0;
-                
+          
         }
-    } else {
-        salarioFuncionario = 0.0;
-        bonus = 0.0;
-      }
-    }
+        valor = salarioFuncionario;
+    } 
+    
+    
 
-	
-	
 	
 	public double getSalarioFuncionario() {
 		return salarioFuncionario;
@@ -98,5 +96,34 @@ public class PagamentoBean {
 	public void setBonus(double bonus) {
 		this.bonus = bonus;
 	}
+
+	public Funcionario getFunc() {
+		return func;
+	}
+
+	public void setFunc(Funcionario func) {
+		this.func = func;
+	}
+
+
+	public double getValor() {
+		return valor;
+	}
+
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	public boolean isGravar() {
+		return gravar;
+	}
+
+
+	public void setGravar(boolean gravar) {
+		this.gravar = gravar;
+	}
 	
+	 
+
 }
