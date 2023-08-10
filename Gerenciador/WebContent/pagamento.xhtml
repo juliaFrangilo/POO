@@ -33,7 +33,8 @@
 		<p:outputLabel value="Bônus" for="@next"/>
 	    <p:inputText id="bonus" disabled="true" value="#{pagamentoBean.bonus}"/>
 	    <p:outputLabel value="Data Pagamento:" for="@next"/>
-	    <p:inputText required="true" value="#{pagamentoBean.pagamento.dataPagamento}"/>
+	    <p:calendar value="#{pagamentoBean.pagamento.dataPagamento}" locale="pt_BR"
+					pattern="dd/MM/yyyy" mask="true"/>
 	     <p:outputLabel value="Mês Referente:" for="@next"/>
 	    <p:inputText required="true" value="#{pagamentoBean.pagamento.mesReferente}" />
 	     <p:outputLabel value="Ano Referente:" for="@next"/>
@@ -52,7 +53,9 @@
 				<h:outputText value="#{pagAtual.bonus}" />
 			</p:column>
 			<p:column headerText="Data Pagamento">
-				<h:outputText value= "#{pagAtual.dataPagamento}" />
+				<h:outputText value= "#{pagAtual.dataPagamento}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:outputText>
 		     </p:column>	
 		     <p:column headerText="Mes Referente">
 				<h:outputText value="#{pagAtual.mesReferente}" />

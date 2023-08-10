@@ -8,9 +8,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import modelo.Endereco;
-import modelo.Filial;
 import modelo.Funcionario;
 import modelo.Pagamento;
 import service.FuncionarioService;
@@ -53,7 +50,6 @@ public class PagamentoBean {
 	
 	public void selecionaFuncionario() {
 		funcionario = funcionarioService.obtemPorId(idFuncionario);
-		System.out.println(funcionario.getNome());
 		salarioFuncionario = funcionario.getSalario();
 		valor = salarioFuncionario;
 	}
@@ -85,6 +81,7 @@ public class PagamentoBean {
 			 FacesContext.getCurrentInstance().
 			    addMessage("msg1", new FacesMessage("Selecione o funcionario"));
 		 }else{		
+			 
 		    funcionario.getPagamentos().add(pagamento);
 		    funcionarioService.merge(funcionario);
 		    pagamentoService.merge(pagamento);

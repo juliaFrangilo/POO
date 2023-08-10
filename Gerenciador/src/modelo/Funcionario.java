@@ -2,7 +2,6 @@
 package modelo;
 
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +28,7 @@ public class Funcionario {
 	@ManyToOne
 	private Filial filial;
 	
-	@OneToMany
+	@OneToMany 
 	private List<Pagamento> pagamentos;
 
 	@OneToOne

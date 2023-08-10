@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
+
 @Entity
 public class Pagamento {
 	
@@ -18,6 +19,9 @@ public class Pagamento {
 	private Date dataPagamento;
 	private int mesReferente;
 	private int anoReferente;
+	
+	 
+	
 	
 	public Pagamento () {
 		
@@ -60,5 +64,6 @@ public class Pagamento {
 		this.anoReferente = anoReferente;
 	}
 
+	
 
 }
