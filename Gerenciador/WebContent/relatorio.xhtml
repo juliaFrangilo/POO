@@ -13,14 +13,14 @@
 <h:head></h:head>
  <ui:define name="conteudo"> 
  <p:growl id="msg" life="5000"/>
- 
+ <p:outputLabel value="Relatório de Funcionários: " />
     <h:form>
         <p:panelGrid columns="2">
-            <p:outputLabel value="Valor Inicial" for="@next" />
+            <p:outputLabel value="Valor Inicial:" for="@next" />
             <p:inputText value="#{relatorioBean.salarioInicial}" />
-            <p:outputLabel value="Valor Final" for="@next"/>
+            <p:outputLabel value="Valor Final: " for="@next"/>
             <p:inputText value="#{relatorioBean.salarioFinal}" />
-            <p:outputLabel value="Seleciona Filial"  for="@next"/>
+            <p:outputLabel value="Seleciona Filial:"  for="@next"/>
             <p:selectOneMenu value="#{relatorioBean.idFilial}" >
                 <f:selectItem itemLabel="Todas as filiais" itemValue="0" />
                 <f:selectItems value="#{relatorioBean.filiais}" var="filialAtual"

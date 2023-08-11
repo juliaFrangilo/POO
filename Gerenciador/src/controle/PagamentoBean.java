@@ -40,11 +40,12 @@ public class PagamentoBean {
 	
 	@PostConstruct
 	public void iniciar() {
+		atualizarLista();
 		funcionarios = funcionarioService.listAll();
 		
 	}
 	
-	private void atualizarLista() {
+	public void atualizarLista() {
 		pagamentos = pagamentoService.listAll();
 	}
 	
@@ -77,22 +78,32 @@ public class PagamentoBean {
     } 
 	
 	public void gravar() {
-		if (idFuncionario == 0  ) {
-			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Selecione o funcionario"));
-		 }else{		
-			 
-		    funcionario.getPagamentos().add(pagamento);
-		    funcionarioService.merge(funcionario);
-		    pagamentoService.merge(pagamento);
-		    FacesContext.getCurrentInstance().
-		    addMessage("msg1", new FacesMessage("Pagamento gravado com sucesso"));
-		    funcionario = new Funcionario();
-		    pagamento = new Pagamento();
-		    atualizarLista();
-		    idFuncionario = 0L;
-		 }
-   }
+	    if (idFuncionario == 0) {
+	        FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Selecione o funcionário"));
+	    } else {
+	        if (pagamentoService.verificaDuplicidade(pagamento.getMesReferente(), pagamento.getAnoReferente(), funcionario.getId())) {
+	        	FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Já foi feito o pagamento referente a esse Mês/Ano para esse funcionário"));
+	        } else {
+	            pagamento.setBonus(bonus);
+	            pagamento.setValor(valor);
+	            pagamento.setFuncionario(funcionario);
+	            pagamentoService.create(pagamento);
+
+	            funcionarioService.merge(funcionario);
+
+	            FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Pagamento gravado com sucesso"));
+	            funcionario = new Funcionario();
+	            pagamento = new Pagamento();
+	            atualizarLista();
+	            idFuncionario = 0L;
+	            valor = 0.0;
+	            bonus = 0.0;
+	        }
+	    }
+	}
+
+   
+	
 	
 	public void excluirPagamento(Pagamento pag) {
 		pagamentoService.remove(pag);
@@ -100,6 +111,8 @@ public class PagamentoBean {
 		FacesContext.getCurrentInstance().
 		addMessage("msg1", new FacesMessage("Pagamento removido com sucesso!"));
 	}
+	
+	
     
 	public List<Pagamento> getPagamentos() {
 		return pagamentos;
@@ -174,6 +187,5 @@ public class PagamentoBean {
 		this.gravar = gravar;
 	}
 	
-	 
 
 }

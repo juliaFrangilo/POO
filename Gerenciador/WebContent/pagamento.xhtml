@@ -16,7 +16,7 @@
 	
 	<h:form id="formPagamento">
 		<p:panelGrid columns="2">
-		<p:outputLabel value="Funcionario:"  for="@next"/>
+		<p:outputLabel value="Funcionário:"  for="@next"/>
 		<p:selectOneMenu value="#{pagamentoBean.idFunfionario}" >
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
 			<f:selectItems  value="#{pagamentoBean.funcionarios}" var="funcAtual"
@@ -46,18 +46,25 @@
 	</h:form>
 	<h:form id="formEdit">
 		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1">
+		    <p:column headerText="Funcionário">
+            <h:outputText value="#{pagAtual.funcionario.nome}" />
+            </p:column>
 			<p:column headerText="Valor" >
-				<h:outputText value="#{pagAtual.valor}" />
+				 <h:outputText value="#{pagAtual.valor}" >
+                 <f:convertNumber type="currency" currencySymbol="R$"/>
+                 </h:outputText>
 			</p:column>
-			<p:column headerText="Bonus">
-				<h:outputText value="#{pagAtual.bonus}" />
+			<p:column headerText="Bonûs">
+				 <h:outputText value="#{pagAtual.bonus}" >
+                 <f:convertNumber type="currency" currencySymbol="R$"/>
+                 </h:outputText>
 			</p:column>
 			<p:column headerText="Data Pagamento">
 				<h:outputText value= "#{pagAtual.dataPagamento}">
 				<f:convertDateTime pattern="dd/MM/yyyy"/>
 			</h:outputText>
 		     </p:column>	
-		     <p:column headerText="Mes Referente">
+		     <p:column headerText="Mês Referente">
 				<h:outputText value="#{pagAtual.mesReferente}" />
 			</p:column>
 			<p:column headerText="Ano Referente">

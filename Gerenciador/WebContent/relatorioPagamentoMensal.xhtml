@@ -5,17 +5,43 @@
       xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:p="http://primefaces.org/ui">
 
-
 	<ui:composition template="template.xhtml">
-	<ui:define name="titulo">Emissão de Relatório</ui:define>
-	       
-	<h:head></h:head>
-	<ui:define name="conteudo"> 
-		<p:growl id="msg" life="5000"/>
-	 
-	    <h:form>
-        
-       </h:form>
-     </ui:define>
+		<ui:define name="titulo">Emissão de Relatório</ui:define>
+		<ui:define name="conteudo"> 
+			<p:growl id="msg" life="5000"/>
+
+			<h:form>
+				<p:outputLabel value="Relatório de Pagamento Mensal" />
+				<p:panelGrid columns="2">
+				    <p:outputLabel value="Mês" for="@next" />
+					<p:inputText value="#{relatorioPagamentoMensal.mes}" placeholder="Mês" />
+					  <p:outputLabel value="Ano" for="@next" />
+					<p:inputText value="#{relatorioPagamentoMensal.ano}" placeholder="Ano" />
+					<p:commandButton value="Gerar Relatório" action="#{relatorioPagamentoMensal.gerarRelatorioMensal}" 
+					             process="@form" update="@form,msg"/>  
+				</p:panelGrid>
+				<p:dataTable value="#{relatorioPagamentoMensal.pagamentos}" var="pagamento">
+					<p:column headerText="Funcionário">
+						<h:outputText value="#{pagamento.funcionario.nome}" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{pagamento.valor}">
+							<f:convertNumber type="currency" currencySymbol="R$"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data do Pagamento">
+						<h:outputText value="#{pagamento.dataPagamento}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable value="#{relatorioPagamentoMensal.totalPagamentos}" var="total">
+					<p:column headerText="Total de Pagamentos: ">
+						<h:outputText value="#{total}">
+							<f:convertNumber type="currency" currencySymbol="R$"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
 	</ui:composition> 
 </html>

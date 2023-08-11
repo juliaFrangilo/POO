@@ -1,10 +1,13 @@
 package modelo;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 
@@ -20,11 +23,20 @@ public class Pagamento {
 	private int mesReferente;
 	private int anoReferente;
 	
-	 
+	@OneToOne 
+	private Funcionario funcionario;
 	
 	
 	public Pagamento () {
 		
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public Long getId() {

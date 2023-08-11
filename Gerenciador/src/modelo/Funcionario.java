@@ -1,14 +1,12 @@
 
 package modelo;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -28,12 +26,11 @@ public class Funcionario {
 	@ManyToOne
 	private Filial filial;
 	
-	@OneToMany 
-	private List<Pagamento> pagamentos;
+	//@OneToMany
+	//private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
 
 	@OneToOne
 	private Endereco endereco;
-	
 	
 	
 	public Funcionario () {
@@ -104,12 +101,12 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 	
-	public List<Pagamento> getPagamentos() {
+	/*public List<Pagamento> getPagamentos() {
 		return pagamentos;
 	}
 
 	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
-	}
+	}*/
 
 }

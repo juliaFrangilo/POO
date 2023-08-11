@@ -126,14 +126,6 @@ public class FuncionarioBean {
 		endereco = f.getEndereco();
 	    gravar = false;
 	 }
-	
-	public List<Cargo> getCargos() {
-		return cargos;
-	}
-
-	public void setCargos(List<Cargo> cargos) {
-		this.cargos = cargos;
-	}
 
 	public void excluirFuncionario(Funcionario f) {
 		funcionarioService.remove(f);
@@ -209,6 +201,15 @@ public class FuncionarioBean {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+	
+	
+	public List<Cargo> getCargos() {
+		return cargos;
+	}
+
+	public void setCargos(List<Cargo> cargos) {
+		this.cargos = cargos;
 	}
 }
 
