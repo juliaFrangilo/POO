@@ -80,19 +80,32 @@ public class PagamentoBean {
 		if (idFuncionario == 0  ) {
 			 FacesContext.getCurrentInstance().
 			    addMessage("msg1", new FacesMessage("Selecione o funcionario"));
-		 }else{		
-			 
-		    funcionario.getPagamentos().add(pagamento);
-		    funcionarioService.merge(funcionario);
-		    pagamentoService.merge(pagamento);
-		    FacesContext.getCurrentInstance().
-		    addMessage("msg1", new FacesMessage("Pagamento gravado com sucesso"));
-		    funcionario = new Funcionario();
-		    pagamento = new Pagamento();
-		    atualizarLista();
-		    idFuncionario = 0L;
+		 } else if(pagamentoService.verificaDuplicidade(pagamento.getMesReferente(), pagamento.getAnoReferente(), funcionario.getId()) == null) {
+			 FacesContext.getCurrentInstance().
+			   addMessage("msg1", new FacesMessage("Ja foi feito o pagamento referente a esse Mes/Ano para esse funcionario"));	
+		        
+		        } else {
+		        	
+		        	pagamento.setBonus(bonus);
+		        	pagamento.setValor(valor);
+		        	pagamento.setFuncionario(funcionario);
+		        	pagamentoService.create(pagamento);
+		            
+		            //funcionario.getPagamentos().add(pagamento);
+		            funcionarioService.merge(funcionario);
+		            
+				    FacesContext.getCurrentInstance().
+				    addMessage("msg1", new FacesMessage("Pagamento gravado com sucesso"));
+				    funcionario = new Funcionario();
+				    pagamento = new Pagamento();
+				    atualizarLista();
+				    idFuncionario = 0L;
+				    valor = 0.0;
+				    bonus = 0.0;
+		        }
 		 }
-   }
+   
+
 	
 	public void excluirPagamento(Pagamento pag) {
 		pagamentoService.remove(pag);
