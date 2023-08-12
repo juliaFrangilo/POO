@@ -14,9 +14,9 @@
 				<p:outputLabel value="Relatório de Pagamento Mensal" />
 				<p:panelGrid columns="2">
 				    <p:outputLabel value="Mês" for="@next" />
-					<p:inputText value="#{relatorioPagamentoMensal.mes}" placeholder="Mês" />
+					<p:inputText value="#{relatorioPagamentoMensal.mes}"  />
 					  <p:outputLabel value="Ano" for="@next" />
-					<p:inputText value="#{relatorioPagamentoMensal.ano}" placeholder="Ano" />
+					<p:inputText value="#{relatorioPagamentoMensal.ano}"  />
 					<p:commandButton value="Gerar Relatório" action="#{relatorioPagamentoMensal.gerarRelatorioMensal}" 
 					             process="@form" update="@form,msg"/>  
 				</p:panelGrid>
