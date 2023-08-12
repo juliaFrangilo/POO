@@ -20,6 +20,7 @@
 					<p:commandButton value="Gerar Relatório" action="#{relatorioPagamentoMensal.gerarRelatorioMensal}" 
 					             process="@form" update="@form,msg"/>  
 				</p:panelGrid>
+				
 				<p:dataTable value="#{relatorioPagamentoMensal.pagamentos}" var="pagamento">
 					<p:column headerText="Funcionário">
 						<h:outputText value="#{pagamento.funcionario.nome}" />
