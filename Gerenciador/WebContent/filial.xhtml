@@ -12,30 +12,47 @@
 <h:head></h:head>
     
     <ui:define name="conteudo"> 
-	   <p:growl id="msg" life="5000"/>
+	<p:growl id="msg" life="5000"/>
 	<h:form id="formFilial">
+	<p:outputLabel value="Empresa:  " />
 	
-		<p:panelGrid columns="2">
+	<p:panelGrid columns="1"  cellpadding="7" styleClass="mb-3">
 			<p:outputLabel value="Nome:" for="@next" />
-			<p:inputText  required="true" value="#{filialBean.filial.nome}" />
+			<p:inputText  required="true" value="#{filialBean.filial.nome}">
+			    <f:validateLength minimum="2"/>
+            </p:inputText>
 			<p:outputLabel value="CNPJ:" for="@next" />
-			<p:inputText  required="true" value="#{filialBean.filial.cnpj}"  />
-			<p:outputLabel value="Informações" />
-			<p:outputLabel value=" do Endereço" />
+			<p:inputText  required="true" value="#{filialBean.filial.cnpj}">
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
+			
+    </p:panelGrid>	
+	     <p:outputLabel value="Informações do Endereço: " />
+	    <p:panelGrid columns="6" cellpadding="7" styleClass="mb-3">
 			<p:outputLabel value="Rua:" for="@next" />
-			<p:inputText required="true" value="#{filialBean.endereco.rua}"  />
+			<p:inputText required="true" value="#{filialBean.endereco.rua}" >
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
+            <p:outputLabel value="Bairro:" for="@next" />
+			<p:inputText required="true" value="#{filialBean.endereco.bairro}" >
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
 			<p:outputLabel value="Número:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.numero}"  />
-			<p:outputLabel value="Bairro:" for="@next" />
-			<p:inputText required="true" value="#{filialBean.endereco.bairro}" />
+			<p:inputText required="true" value="#{filialBean.endereco.numero}" >
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
 			<p:outputLabel value="Cidade:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.cidade}"  />
+			<p:inputText required="true" value="#{filialBean.endereco.cidade}" >
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
 			<p:outputLabel value="CEP:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.cep}" />
-	
+			<p:inputText required="true" value="#{filialBean.endereco.cep}" >
+			  <f:validateLength minimum="2"/>
+            </p:inputText>
+	  </p:panelGrid>
 			<p:commandButton action="#{filialBean.gravar()}" value="Gravar"
-			process="@form" update="@form,msg,formEdit"/>
-		</p:panelGrid>
+			process="@form" update="@form,msg,formEdit"  icon="pi pi-check" />
+
 	   </h:form>
 
 	   <h:form id="formEdit">
@@ -49,12 +66,13 @@
 			<p:column headerText="Rua">
 				<h:outputText value="#{filialAtual.endereco.rua}" />
 			</p:column>
-			<p:column headerText="Número">
-				<h:outputText value="#{filialAtual.endereco.numero}" />
-			</p:column>
 			<p:column headerText="Bairro">
 				<h:outputText value="#{filialAtual.endereco.bairro}" />
 			</p:column>
+			<p:column headerText="Número">
+				<h:outputText value="#{filialAtual.endereco.numero}" />
+			</p:column>
+		
 		    	<p:column headerText="Cidade">
 				<h:outputText value="#{filialAtual.endereco.cidade}" />
 			</p:column>

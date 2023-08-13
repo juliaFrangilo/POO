@@ -45,7 +45,8 @@
 	</p:panelGrid>
 	</h:form>
 	<h:form id="formEdit">
-		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1">
+		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1" 
+		scrollable="true" scrollHeight="250">
 		    <p:column headerText="Funcionário">
             <h:outputText value="#{pagAtual.funcionario.nome}" />
             </p:column>
