@@ -15,52 +15,55 @@
      <p:outputLabel value="Relatório de Pagamento por Funcionário " />
      
 	 <h:form>
-	      <p:panelGrid columns="2">
-	 	     <p:outputLabel  value=" Funcionário:" />
-                   <p:selectOneMenu value="#{relatorioPagamentoFuncionario.idFunc}">
-    			   <f:selectItem itemLabel="Selecione... " itemValue="#{null}" />
-   				   <f:selectItems value="#{relatorioPagamentoFuncionario.funcionarios}" var="funcionario"
-        		          itemLabel="#{funcionario.nome}" itemValue="#{funcionario.id}" />
+      <p:panelGrid columns="2">
+	     <p:outputLabel  value=" Funcionário:" />
+               <p:selectOneMenu value="#{relatorioPagamentoFuncionarioBean.idFunc}">
+			   <f:selectItem itemLabel="Selecione... " itemValue="#{null}" />
+			   <f:selectItems value="#{relatorioPagamentoFuncionarioBean.funcionarios}" var="funcionario"
+    		          itemLabel="#{funcionario.nome}" itemValue="#{funcionario.id}" />
 				</p:selectOneMenu>
 
-                    <p:commandButton action="#{relatorioPagamentoFuncionario.gerarRelatorioPagamentosPorFuncionario}" value="Gerar Relatório" 
-                        process="@form" update="msg" />  
-                </p:panelGrid>
+                <p:commandButton action="#{relatorioPagamentoFuncionarioBean.gerarRelatorioPagamentosPorFuncionario}" value="Gerar Relatório" 
+                    process="@form" update="msg,formRelatorio" />  
+            </p:panelGrid>
+      </h:form>
 
-            <h:form>
-                <p:dataTable value="#{relatorioPagamentoFuncionario.pagamentos}" var="pagamento">
-                    <p:column headerText="Funcionário">
-                        <h:outputText value="#{pagamento.funcionario.nome}" />
-                    </p:column>
-                    <p:column headerText="Filial">
-                        <h:outputText value="#{pagamento.funcionario.filial.nome}" />
-                    </p:column>
-                    <p:column headerText="Valor">
-                        <h:outputText value="#{pagamento.valor}" />
-                    </p:column>
-                    <p:column headerText="Data do Pagamento">
-                        <h:outputText value="#{pagamento.dataPagamento}" />
-                    </p:column>
-                    <p:column headerText="Bônus">
-                        <h:outputText value="#{pagamento.bonus}" />
-                    </p:column>
-                    <p:column headerText="Mês">
-                        <h:outputText value="#{pagamento.mesReferente}" />
-                    </p:column>
-                    <p:column headerText="Ano">
-                        <h:outputText value="#{pagamento.anoReferente}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-          <h:form>
-              <p:dataTable  value="#{relatorioPagamentoFuncionario}" var="pagamento">//
-                <p:column headerText="Total de Pagamentos: ">
-                    
-                  
-                </p:column>
-              </p:dataTable>
-             </h:form>
-       </h:form>
+         <h:form id="formRelatorio">
+             <p:dataTable value="#{relatorioPagamentoFuncionarioBean.pagamentos}" var="pagAtual" scrollable="true" scrollHeight="250">
+                 <p:column headerText="Funcionário">
+                     <h:outputText value="#{pagAtual.funcionario.nome}" />
+                 </p:column>
+                 <p:column headerText="Filial">
+                     <h:outputText value="#{pagAtual.funcionario.filial.nome}" />
+                 </p:column>
+                 <p:column headerText="Valor">
+                     <h:outputText value="#{pagAtual.valor}" >
+                <f:convertNumber type="currency" currencySymbol="R$"/>
+                </h:outputText>
+                 </p:column>
+                 <p:column headerText="Bônus">
+                     <h:outputText value="#{pagAtual.bonus}" >
+                 		<f:convertNumber type="currency" currencySymbol="R$"/>
+                 	</h:outputText>
+                 </p:column>
+                 <p:column headerText="Data do Pagamento">
+                     <h:outputText value= "#{pagAtual.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+                 </p:column>
+                 <p:column headerText="Mês">
+                     <h:outputText value="#{pagAtual.mesReferente}" />
+                 </p:column>
+                 <p:column headerText="Ano">
+                     <h:outputText value="#{pagAtual.anoReferente}" />
+                 </p:column>
+                  <p:column headerText="Valor total Pago ">
+                  <h:outputText value="#{pagAtual.getTotalPago(pagAtual.valor,pagAtual.bonus)}" >
+                 		<f:convertNumber type="currency" currencySymbol="R$"/>
+                 	</h:outputText>    
+              	</p:column>
+             </p:dataTable>
+         </h:form>
      </ui:define>
 	</ui:composition> 
 </html>

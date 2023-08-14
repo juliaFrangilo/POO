@@ -75,6 +75,10 @@ public class Pagamento {
 	public void setAnoReferente(int anoReferente) {
 		this.anoReferente = anoReferente;
 	}
+	
+	public Double getTotalPago(Double valor, Double bonus) {
+		return valor + bonus;
+	}
 
 	
 

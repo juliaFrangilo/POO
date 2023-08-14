@@ -15,7 +15,7 @@ import service.PagamentoService;
 
 @ViewScoped
 @ManagedBean
-public class RelatorioPagamentoMensal {
+public class RelatorioPagamentoMensalBean {
 	
 	@EJB
 	 private PagamentoService pagamentoService;
@@ -24,8 +24,6 @@ public class RelatorioPagamentoMensal {
 	 private FuncionarioService funcionarioService;
 	 
 	 
-	    
-
 	    private int mes;
 	    private int ano;
 	    private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
@@ -35,24 +33,22 @@ public class RelatorioPagamentoMensal {
 
 	    @PostConstruct
 		public void iniciar() {
-			atualizarLista();
-			
+	    	//pagamentos = pagamentoService.listAll();
 		}
 		
 		public void atualizarLista() {
-			pagamentos = pagamentoService.listAll();
 			 calcularTotalPagamentos();
 		}
 		
 	    public void gerarRelatorioMensal() {
-	      funcionariosPagos = pagamentoService.obterFuncionariosPagosNoPeriodo(mes, ano);
+	      pagamentos = pagamentoService.obterFuncionariosPagosNoPeriodo(mes, ano);
 	        calcularTotalPagamentos();
-	        }
+	     }
 	    
 	    private void calcularTotalPagamentos() {
 	        totalPagamentos = 0.0;
 	        for (Pagamento pagamento : pagamentos) {
-	            totalPagamentos += pagamento.getValor(); 
+	            totalPagamentos += pagamento.getTotalPago(pagamento.getValor(), pagamento.getBonus()); 
 	    }
 	}   
 

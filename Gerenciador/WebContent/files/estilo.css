@@ -7,7 +7,7 @@ h1{text-align: center;
 
 
 .pagina{
-	background: #f0efed;
+	background: #C0C0C0;
 	margin: 0 auto;
 	width: 100%;
 	min-width: 690px;
@@ -16,16 +16,16 @@ h1{text-align: center;
 	min-height: 600px;
 	border-right: 1px dotted;
 	border-left: 1px dotted;
-	color:#6e6251;
+	color:#363636;
 }
 
 .cabecalho{
-	color:#654B24;
+	color:#ffffff;
 	border: 1px solid #ccc;
  	margin: 0px 0px 5px 0px;
 	padding: 5px 0;
 	width: 100%;
-    background: #ECEADF;
+    background: #000000;
 }
 
 .conteudo{
@@ -35,16 +35,20 @@ h1{text-align: center;
 	
 }
 
+#teste {
+	background-color: #C0C0C0
+}
+
 .rodape{
-	background-color:#ECEADF;
-	color: #654B24;
+	background-color:#000000;
+	color: #ffffff;
 	height: 35px;
 	line-height: 30px;
 	text-align: center;
 	width: 70%;
 	margin: 0 auto;
 	min-width: 690px;
-	border: 1px solid #ECEADF;
+	border: 1px solid #000000;
 }
 
 .botaoVermelho{

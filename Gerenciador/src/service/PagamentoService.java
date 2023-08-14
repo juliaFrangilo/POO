@@ -47,38 +47,36 @@ public class PagamentoService extends GenericService<Pagamento>{
 	}
 
 	 
-	public List<Pagamento> obterPagamentosPorFuncionarioOrdenados(Funcionario funcionario) {
+	public List<Pagamento> obterPagamentosPorFuncionarioOrdenados(Long idFunc) {
 	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	    CriteriaQuery<Pagamento> criteriaQuery = criteriaBuilder.createQuery(Pagamento.class);
-	    Root<Pagamento> pagamentoRoot = criteriaQuery.from(Pagamento.class);
+	    Root<Pagamento> rootPagamento = criteriaQuery.from(Pagamento.class);
 	    
-	    Join<Pagamento, Funcionario> funcionarioJoin = pagamentoRoot.join("funcionario");
-	    criteriaQuery.select(pagamentoRoot);
-	    criteriaQuery.where(criteriaBuilder.equal(funcionarioJoin.get("id"), funcionario.getId()));
+	    criteriaQuery.select(rootPagamento);
+	    criteriaQuery.where(criteriaBuilder.equal(rootPagamento.get("funcionario").get("id"), idFunc));
 	    criteriaQuery.orderBy(
-	        criteriaBuilder.asc(pagamentoRoot.get("anoReferente")),
-	        criteriaBuilder.asc(pagamentoRoot.get("mesReferente"))
+	        criteriaBuilder.asc(rootPagamento.get("anoReferente")),
+	        criteriaBuilder.asc(rootPagamento.get("mesReferente"))
 	    );
 	    
 	    return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 	
 	
-	public List<Funcionario> obterFuncionariosPagosNoPeriodo(int mes, int ano) {
-	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	    CriteriaQuery<Funcionario> criteriaQuery = criteriaBuilder.createQuery(Funcionario.class);
-	    Root<Pagamento> pagamentoRoot = criteriaQuery.from(Pagamento.class);
+	public List<Pagamento> obterFuncionariosPagosNoPeriodo(int mes, int ano) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<Pagamento> criteriaQuery = criteriaBuilder.createQuery(Pagamento.class);
+	    Root<Pagamento> rootPagamento = criteriaQuery.from(Pagamento.class);
 
-	    Join<Pagamento, Funcionario> funcionarioJoin = pagamentoRoot.join("funcionario");
+	    Join<Pagamento, Funcionario> funcionarioJoin = rootPagamento.join("funcionario");
 
-	    criteriaQuery.select(funcionarioJoin);
+	    criteriaQuery.select(rootPagamento);
 	    criteriaQuery.where(
 	        criteriaBuilder.and(
-	            criteriaBuilder.equal(criteriaBuilder.function("month", Integer.class, pagamentoRoot.get("dataPagamento")), mes),
-	            criteriaBuilder.equal(criteriaBuilder.function("year", Integer.class, pagamentoRoot.get("dataPagamento")), ano)
+	            criteriaBuilder.equal(criteriaBuilder.function("month", Integer.class, rootPagamento.get("dataPagamento")), mes),
+	            criteriaBuilder.equal(criteriaBuilder.function("year", Integer.class, rootPagamento.get("dataPagamento")), ano)
 	        )
 	    );
-	    criteriaQuery.groupBy(funcionarioJoin);
 
 	    return entityManager.createQuery(criteriaQuery).getResultList();
 	}

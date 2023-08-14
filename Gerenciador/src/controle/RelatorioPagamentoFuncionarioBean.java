@@ -3,20 +3,24 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import modelo.Funcionario;
 import modelo.Pagamento;
+import service.FuncionarioService;
 import service.PagamentoService;
 
 @ViewScoped
 @ManagedBean
-public class RelatorioPagamentoFuncionario{
+public class RelatorioPagamentoFuncionarioBean{
 	
 	@EJB
 	private PagamentoService pagamentoService;
+	
+	@EJB
+	private FuncionarioService funcionarioService;
 	
 	private List<Pagamento> pagamentos ;
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
@@ -25,16 +29,19 @@ public class RelatorioPagamentoFuncionario{
 	private Long idFunc = 0L;
 	
 	
+	@PostConstruct
+	public void iniciar() {
+		funcionarios = funcionarioService.listAll();
+		
+	}
 	
-	
-	public void gerarRelatorioPagamentosPorFuncionario(Funcionario funcionario) {
-	      if (funcionario != null) {
-	            pagamentos = pagamentoService.obterPagamentosPorFuncionarioOrdenados(funcionario);
+	public void gerarRelatorioPagamentosPorFuncionario() {
+	      if (idFunc != 0L) {
+	            pagamentos = pagamentoService.obterPagamentosPorFuncionarioOrdenados(idFunc);
 	        }
 	    }
 	    
 	
-
 	public PagamentoService getPagamentoService() {
 		return pagamentoService;
 	}
