@@ -13,8 +13,9 @@
 <h:head></h:head>
  <ui:define name="conteudo"> 
  <p:growl id="msg" life="5000"/>
- <p:outputLabel value="Relatório de Funcionários: " />
+
     <h:form>
+           <p:outputLabel value="Relatório de Funcionários :" style="color: black; font-weight: bold;" />
         <p:panelGrid columns="2">
             <p:outputLabel value="Valor Inicial:" for="@next" />
             <p:inputText value="#{relatorioBean.salarioInicial}" />
@@ -29,8 +30,9 @@
 
             <p:commandButton action="#{relatorioBean.gerarRelatorio}" value="Gerar Relatório" 
  				process="@form" update="@form,msg"/>  
+ 				
         </p:panelGrid>
-          <h:messages style="color: red;" />
+       
             <p:dataTable value="#{relatorioBean.funcionarios}" var="funcAtual" border="1" 
                 rendered="#{not empty relatorioBean.funcionarios}">
             <p:column headerText="Nome">

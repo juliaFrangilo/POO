@@ -69,6 +69,8 @@ public class FilialBean {
 	 }
 	
 	public void gravar() {
+		
+		if(filial.getId()==null) {
 		endereco = enderecoService.mergeEndereco(endereco); 
 	    filial.setEndereco(endereco);
 	    
@@ -79,10 +81,9 @@ public class FilialBean {
 	    endereco = new Endereco();
 	    atualizarLista();
 	    gravar = true;
-	
-}
-	public void atualizar() {
-		endereco = enderecoService.mergeEndereco(endereco);
+	  
+	}else {
+	endereco = enderecoService.mergeEndereco(endereco);
 		
 		filialService.merge(filial);
 		FacesContext.getCurrentInstance().
@@ -92,6 +93,9 @@ public class FilialBean {
 		atualizarLista();
 		gravar = true;
 	}
+}
+  
+	
 		
 	public void carregarFilial(Filial f) {
 		filial = f;

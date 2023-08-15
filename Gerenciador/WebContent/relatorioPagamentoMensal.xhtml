@@ -11,15 +11,18 @@
 			<p:growl id="msg" life="5000"/>
 
 			<h:form>
-				<p:outputLabel value="Relatório de Pagamento Mensal" />
+				<p:outputLabel value="Relatório de Pagamento Mensal" style="color: black; font-weight: bold;" /> 
 				<p:panelGrid columns="2">
 				    <p:outputLabel value="Mês" for="@next" />
-					<p:inputText value="#{relatorioPagamentoMensalBean.mes}"  />
+		             <p:spinner value="#{relatorioPagamentoMensalBean.mes}" min="1" max="12"/>    
 					  <p:outputLabel value="Ano" for="@next" />
-					<p:inputText value="#{relatorioPagamentoMensalBean.ano}"  />
-					<p:commandButton value="Gerar Relatório" action="#{relatorioPagamentoMensalBean.gerarRelatorioMensal}" 
-					             process="@form" update="@form,msg,formRelatorio"/>  
+					<p:spinner value="#{relatorioPagamentoMensalBean.ano}" min="2023" max="2050"/>
+					 
 				</p:panelGrid>
+				   <p:commandButton value="Gerar Relatório" action="#{relatorioPagamentoMensalBean.gerarRelatorioMensal}" 
+					             process="@form" update="@form,msg,formRelatorio" />
+				           
+                     
 			</h:form>
 			<h:form id="formRelatorio">	
 				<p:dataTable value="#{relatorioPagamentoMensalBean.pagamentos}" var="pagAtual">
@@ -53,7 +56,7 @@
                  	</h:outputText>    
               		</p:column>
 				</p:dataTable>
-
+                     
 				<p:dataTable value="#{relatorioPagamentoMensalBean.totalPagamentos}" var="total">
 					<p:column headerText="Total de Pagamentos: ">
 						<h:outputText value="#{total}">

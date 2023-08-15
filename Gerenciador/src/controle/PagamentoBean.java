@@ -79,10 +79,10 @@ public class PagamentoBean {
 	
 	public void gravar() {
 	    if (idFuncionario == 0) {
-	        FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Selecione o funcionário"));
+	    	FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Selecione um funcionário."));
 	    } else {
 	        if (pagamentoService.verificaDuplicidade(pagamento.getMesReferente(), pagamento.getAnoReferente(), funcionario.getId())) {
-	        	FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Já foi feito o pagamento referente a esse Mês/Ano para esse funcionário"));
+	        	FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Já foi feito o pagamento referente a esse Mês/Ano para esse funcionário."));
 	        } else {
 	            pagamento.setBonus(bonus);
 	            pagamento.setValor(valor);

@@ -3,10 +3,12 @@ package controle;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
+
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import modelo.Funcionario;
 import modelo.Pagamento;
@@ -24,26 +26,29 @@ public class RelatorioPagamentoMensalBean {
 	 private FuncionarioService funcionarioService;
 	 
 	 
-	    private int mes;
-	    private int ano;
+	    private Integer mes;
+	    private Integer ano;
 	    private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
 	    private double totalPagamentos;
 	    private List<Funcionario> funcionariosPagos;
 	  
 
-	    @PostConstruct
-		public void iniciar() {
-	    	//pagamentos = pagamentoService.listAll();
-		}
-		
+	
 		public void atualizarLista() {
 			 calcularTotalPagamentos();
 		}
 		
 	    public void gerarRelatorioMensal() {
-	      pagamentos = pagamentoService.obterFuncionariosPagosNoPeriodo(mes, ano);
-	        calcularTotalPagamentos();
-	     }
+	    	 pagamentos = pagamentoService.obterFuncionariosPagosNoPeriodo(mes, ano);
+
+	    	    if (pagamentos.isEmpty()) {
+	    	        FacesContext context = FacesContext.getCurrentInstance();
+	    	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso! Nenhum pagamento encontrado neste período.",
+	    	            "Aviso."));
+	    	    }
+
+	    	    calcularTotalPagamentos();
+	    	}
 	    
 	    private void calcularTotalPagamentos() {
 	        totalPagamentos = 0.0;
@@ -61,26 +66,21 @@ public class RelatorioPagamentoMensalBean {
 			this.pagamentoService = pagamentoService;
 		}
 
-
-		public int getMes() {
+		public Integer getMes() {
 			return mes;
 		}
 
-
-		public void setMes(int mes) {
+		public void setMes(Integer mes) {
 			this.mes = mes;
 		}
 
-
-		public int getAno() {
+		public Integer getAno() {
 			return ano;
 		}
 
-
-		public void setAno(int ano) {
+		public void setAno(Integer ano) {
 			this.ano = ano;
 		}
-
 
 		public List<Pagamento> getPagamentos() {
 			return pagamentos;
@@ -106,7 +106,6 @@ public class RelatorioPagamentoMensalBean {
 		public void setFuncionariosPagos(List<Funcionario> funcionariosPagos) {
 			this.funcionariosPagos = funcionariosPagos;
 		}
-		
 		
 	    
 }

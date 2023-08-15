@@ -13,47 +13,61 @@
 
    <ui:define name="conteudo"> 
    <p:growl id="msg" life="5000"/>
+ 
    
 	<h:form id="formFuncionario">
-	
-		<p:panelGrid columns="2">
+	       <p:outputLabel value="Funcionário: " style="color: black; font-weight: bold;" />
+		<h:panelGrid columns="3">
 			<p:outputLabel value="Nome:" for="@next" />
-			<p:inputText required="true" value="#{funcionarioBean.funcionario.nome}" />
+			<p:inputText id ="nome" required="true" value="#{funcionarioBean.funcionario.nome}" />
+			    	   <p:message for="nome" display="text"/>
 			<p:outputLabel  value="Idade:" for="@next"/>
-			<p:inputText required="true" value="#{funcionarioBean.funcionario.idade}" />
+			<p:inputText id="idade" required="true" value="#{funcionarioBean.funcionario.idade}" />
+			      	   <p:message for="idade" display="text"/>
 			<p:outputLabel  value="CPF:" for="@next"/>
-			<p:inputText required="true"  value="#{funcionarioBean.funcionario.cpf}" />
+			<p:inputText id= "cpf" required="true"  value="#{funcionarioBean.funcionario.cpf}" />
+			       	   <p:message for="cpf" display="text"/>
+			<p:outputLabel value="Salário:" for="@next"/>
+		    <p:inputText id="salario" required="true" value="#{funcionarioBean.funcionario.salario}"/>
+		              <p:message for="salario" display="text"/>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
 			<p:outputLabel value="Cargo:"  for="@next"/>
 			<p:selectOneMenu value="#{funcionarioBean.funcionario.cargo}">
 			<f:selectItem itemLabel="Selecione..." itemValue=""/>
 			<f:selectItems  value="#{funcionarioBean.cargos}" var="cargoAtual"
 					itemLabel="#{cargoAtual.descricao}" itemValue="#{cargoAtual}"/>
-			</p:selectOneMenu>	
-			<p:outputLabel value="Salário:" for="@next"/>
-		    <p:inputText required="true" value="#{funcionarioBean.funcionario.salario}"/>
+			</p:selectOneMenu>
 			<p:outputLabel value="Filial:"  for="@next"/>
 			<p:selectOneMenu value="#{funcionarioBean.idFilial}">
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
 			<f:selectItems  value="#{funcionarioBean.filiais}" var="filialAtual"
 					itemLabel="#{filialAtual.nome}" itemValue="#{filialAtual.id}"/>
 			</p:selectOneMenu>	
-			
-			<p:outputLabel value="Informações" />
-			<p:outputLabel value=" do Endereço" />
-			<p:outputLabel value="Rua:" for="@next" />
-			<p:inputText required="true" value="#{funcionarioBean.endereco.rua}" />
-			<p:outputLabel value="Número:" for="@next"/>
-			<p:inputText required="true" value="#{funcionarioBean.endereco.numero}" />
-			<p:outputLabel value="Bairro:" for="@next" />
-			<p:inputText required="true" value="#{funcionarioBean.endereco.bairro}" />
-			<p:outputLabel value="Cidade:" for="@next"/>
-			<p:inputText required="true" value="#{funcionarioBean.endereco.cidade}" />
-			<p:outputLabel value="CEP:" for="@next"/>
-			<p:inputText required="true" value="#{funcionarioBean.endereco.cep}" />
-			<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
-				process="@form" update="@form,msg,formEdit"/>
+			</h:panelGrid>
+			<p:outputLabel value="Informações do Endereço: " style="color: black; font-weight: bold;" />
 		
-		</p:panelGrid>
+		<h:panelGrid columns="3">
+			<p:outputLabel value="Rua:" for="@next" />
+	        <p:inputText id="rua" required="true" value="#{funcionarioBean.endereco.rua}" />
+			       	  <p:message for="rua" display="text"/>
+			<p:outputLabel value="Número:" for="@next"/>
+			<p:inputText id="numero" required="true" value="#{funcionarioBean.endereco.numero}" />
+			         <p:message for="numero" display="text"/>
+			<p:outputLabel value="Bairro:" for="@next" />
+			<p:inputText id="bairro" required="true" value="#{funcionarioBean.endereco.bairro}" />
+			          <p:message for="bairro" display="text"/>
+			<p:outputLabel value="Cidade:" for="@next"/>
+			<p:inputText id="cidade" required="true" value="#{funcionarioBean.endereco.cidade}" />
+			           <p:message for="cidade" display="text"/>
+			<p:outputLabel value="CEP:" for="@next"/>
+			<p:inputText id="cep" required="true" value="#{funcionarioBean.endereco.cep}" />
+			         	 <p:message for="cep" display="text"/>
+			         	 
+			<p:commandButton action="#{funcionarioBean.gravar()}" value="Gravar"
+				process="@form" update="@form,formEdit, msg"/>
+		
+		</h:panelGrid>
 	</h:form>
 	<h:form >
 		<p:panelGrid columns="3">

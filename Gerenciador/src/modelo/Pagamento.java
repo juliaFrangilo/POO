@@ -20,8 +20,8 @@ public class Pagamento {
 	private Double valor;
 	private Double bonus;
 	private Date dataPagamento;
-	private int mesReferente;
-	private int anoReferente;
+	private Integer mesReferente;
+	private Integer anoReferente;
 	
 	@OneToOne 
 	private Funcionario funcionario;
@@ -63,19 +63,23 @@ public class Pagamento {
 	public void setDataPagamento(Date dataPagemento) {
 		this.dataPagamento = dataPagemento;
 	}
-	public int getMesReferente() {
+	
+	public Integer getMesReferente() {
 		return mesReferente;
 	}
-	public void setMesReferente(int mesReferente) {
+
+	public void setMesReferente(Integer mesReferente) {
 		this.mesReferente = mesReferente;
 	}
-	public int getAnoReferente() {
+
+	public Integer getAnoReferente() {
 		return anoReferente;
 	}
-	public void setAnoReferente(int anoReferente) {
+
+	public void setAnoReferente(Integer anoReferente) {
 		this.anoReferente = anoReferente;
 	}
-	
+
 	public Double getTotalPago(Double valor, Double bonus) {
 		return valor + bonus;
 	}

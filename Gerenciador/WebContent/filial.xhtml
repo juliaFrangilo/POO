@@ -8,51 +8,45 @@
 
 <ui:composition template="template.xhtml">
 <ui:define name="titulo">Gerenciamento de Filiais</ui:define>
-
+<p:growl id="msg" life="5000"/>
 <h:head></h:head>
     
     <ui:define name="conteudo"> 
-	<p:growl id="msg" life="5000"/>
-	<h:form id="formFilial">
-	<p:outputLabel value="Empresa:  " />
-	
-	<p:panelGrid columns="1"  cellpadding="7" styleClass="mb-3">
-			<p:outputLabel value="Nome:" for="@next" />
-			<p:inputText  required="true" value="#{filialBean.filial.nome}">
-			    <f:validateLength minimum="2"/>
-            </p:inputText>
-			<p:outputLabel value="CNPJ:" for="@next" />
-			<p:inputText  required="true" value="#{filialBean.filial.cnpj}">
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-			
-    </p:panelGrid>	
-	     <p:outputLabel value="Informações do Endereço: " />
-	    <p:panelGrid columns="6" cellpadding="7" styleClass="mb-3">
-			<p:outputLabel value="Rua:" for="@next" />
-			<p:inputText required="true" value="#{filialBean.endereco.rua}" >
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-            <p:outputLabel value="Bairro:" for="@next" />
-			<p:inputText required="true" value="#{filialBean.endereco.bairro}" >
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-			<p:outputLabel value="Número:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.numero}" >
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-			<p:outputLabel value="Cidade:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.cidade}" >
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-			<p:outputLabel value="CEP:" for="@next"/>
-			<p:inputText required="true" value="#{filialBean.endereco.cep}" >
-			  <f:validateLength minimum="2"/>
-            </p:inputText>
-	  </p:panelGrid>
-			<p:commandButton action="#{filialBean.gravar()}" value="Gravar"
-			process="@form" update="@form,msg,formEdit"  icon="pi pi-check" />
+    <p:growl id="msg" life="5000"/>
 
+	<h:form id="formFilial">
+	<p:outputLabel value="Empresa: " style="color: black; font-weight: bold;" />
+	
+	
+	<h:panelGrid columns="3"  cellpadding="7" styleClass="mb-3">
+			<p:outputLabel value="Nome:" for="@next" />
+		    <p:inputText  id ="nome"  required="true" value="#{filialBean.filial.nome}"/>
+			     <p:message for="nome" display="text"/>
+			<p:outputLabel value="CNPJ:" for="@next" />
+			<p:inputText id="cnpj" required="true" value="#{filialBean.filial.cnpj}"/>
+			  <p:message for="cnpj" display="text"/>
+
+    </h:panelGrid>	
+	     <p:outputLabel value="Informações do Endereço: "  style="color: black; font-weight: bold;"/>
+	    <h:panelGrid columns="3" >
+			<p:outputLabel value="Rua:" for="@next" />
+			<p:inputText id = "rua" required="true" value="#{filialBean.endereco.rua}"/>
+			   <p:message for="rua" display="text"/>
+            <p:outputLabel value="Bairro:" for="@next" />
+			<p:inputText id="bairro" required="true" value="#{filialBean.endereco.bairro}"/>
+			   <p:message for="bairro" display="text"/>
+			<p:outputLabel value="Número:" for="@next"/>
+			<p:inputText id="numero"  required="true" value="#{filialBean.endereco.numero}"/>
+			 <p:message for="numero" display="text"/>
+			<p:outputLabel value="Cidade:" for="@next"/>
+			<p:inputText id="cidade" required="true" value="#{filialBean.endereco.cidade}"/>
+			   <p:message for="cidade" display="text"/>
+			<p:outputLabel value="CEP:" for="@next"/>
+			<p:inputText id="cep" required="true" value="#{filialBean.endereco.cep}"/>
+			  <p:message for="cep" display="text"/>    
+	  </h:panelGrid>
+			<p:commandButton action="#{filialBean.gravar()}" value="Gravar"
+			process="@form" update="@form,formEdit, msg"  />
 	   </h:form>
 
 	   <h:form id="formEdit">
@@ -85,7 +79,7 @@
 			<p:column>
 				<f:facet name="header">Ações</f:facet>
 				<p:commandButton action="#{filialBean.carregarFilial(filialAtual)}" value="Editar"
-				process="@form" update=":formFilial"/>	
+				process="@form" update="formFilial"/>
 			</p:column>
 		</p:dataTable>
 	  </h:form>

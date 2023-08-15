@@ -7,7 +7,7 @@
 
 
 <ui:composition template="template.xhtml">
-<ui:define name="titulo">Gerenciamento de Pagamento</ui:define>
+<ui:define name="titulo">Gerenciamento de Pagamentos</ui:define>
 
 <h:head></h:head> 
 
@@ -15,7 +15,8 @@
   <p:growl id="msg" life="5000"/>
 	
 	<h:form id="formPagamento">
-		<p:panelGrid columns="2">
+	 	<p:outputLabel value="Pagamento: " style="color: black; font-weight: bold;" />
+		<h:panelGrid columns="2">
 		<p:outputLabel value="Funcionário:"  for="@next"/>
 		<p:selectOneMenu value="#{pagamentoBean.idFunfionario}" >
 			<f:selectItem itemLabel="Selecione..." itemValue="0"/>
@@ -33,20 +34,20 @@
 		<p:outputLabel value="Bônus" for="@next"/>
 	    <p:inputText id="bonus" disabled="true" value="#{pagamentoBean.bonus}"/>
 	    <p:outputLabel value="Data Pagamento:" for="@next"/>
-	    <p:calendar value="#{pagamentoBean.pagamento.dataPagamento}" locale="pt_BR"
+	    <p:calendar  id= "data" required="true" value="#{pagamentoBean.pagamento.dataPagamento}" locale="pt_BR"
 					pattern="dd/MM/yyyy" mask="true"/>
+					 
 	     <p:outputLabel value="Mês Referente:" for="@next"/>
-	    <p:inputText required="true" value="#{pagamentoBean.pagamento.mesReferente}" />
+	    <p:spinner value="#{pagamentoBean.pagamento.mesReferente}" min="1" max="12"/>
 	     <p:outputLabel value="Ano Referente:" for="@next"/>
-	    <p:inputText required="true" value="#{pagamentoBean.pagamento.anoReferente}" />
+	     <p:spinner value="#{pagamentoBean.pagamento.anoReferente}" min="2020" max="2050"/>
 	    
 		<p:commandButton action="#{pagamentoBean.gravar()}" value="Gravar"
-				process="@form" update="@form,msg,formEdit"/>	
-	</p:panelGrid>
+				process="@form" update="@form,msg,formEdit, msg"/>	
+	</h:panelGrid>
 	</h:form>
 	<h:form id="formEdit">
-		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1" 
-		scrollable="true" scrollHeight="250">
+		<p:dataTable value="#{pagamentoBean.pagamentos}" var="pagAtual" border="1" >
 		    <p:column headerText="Funcionário">
             <h:outputText value="#{pagAtual.funcionario.nome}" />
             </p:column>

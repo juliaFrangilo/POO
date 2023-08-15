@@ -79,8 +79,7 @@ public class RelatorioBean {
 	    idFilial = 0L;
 	    
 	    if (funcionarios.isEmpty()) {
-			 FacesContext.getCurrentInstance().
-			    addMessage("msg1", new FacesMessage("Nenhum funcionário encontrado para essa pesquisa."));
+	    	 FacesContext.getCurrentInstance().addMessage("msg1", new FacesMessage("Nenhum funcionário encontrado para essa pesquisa."));
 		 }
 	}	
 	// getters e setters

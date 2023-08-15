@@ -80,7 +80,7 @@ public class FuncionarioBean {
 			 FacesContext.getCurrentInstance().
                 addMessage("msg1", new FacesMessage("Selecione o cargo do funcionário."));
 			 return;
-		 }else{
+		 }else {
 			// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 			    endereco = enderecoService.mergeEndereco(endereco);
 			    funcionario.setEndereco(endereco);
@@ -97,7 +97,7 @@ public class FuncionarioBean {
 			    atualizarLista();
 			    idFilial = 0L;
 		 }
-   }
+	}
 	
 	public void atualizar() {
 		// Verificar se houve tentativa de alterar a filial
@@ -212,4 +212,3 @@ public class FuncionarioBean {
 		this.cargos = cargos;
 	}
 }
-
