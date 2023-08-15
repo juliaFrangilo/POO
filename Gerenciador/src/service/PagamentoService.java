@@ -68,8 +68,6 @@ public class PagamentoService extends GenericService<Pagamento>{
 	    CriteriaQuery<Pagamento> criteriaQuery = criteriaBuilder.createQuery(Pagamento.class);
 	    Root<Pagamento> rootPagamento = criteriaQuery.from(Pagamento.class);
 
-	    Join<Pagamento, Funcionario> funcionarioJoin = rootPagamento.join("funcionario");
-
 	    criteriaQuery.select(rootPagamento);
 	    criteriaQuery.where(
 	        criteriaBuilder.and(

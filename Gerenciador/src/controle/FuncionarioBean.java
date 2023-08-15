@@ -42,7 +42,6 @@ public class FuncionarioBean {
 
 	
 	private Long idFilial;
-	private Boolean gravar = true; 
 	private String texto;
 	
 	
@@ -115,7 +114,6 @@ public class FuncionarioBean {
 					funcionario = new Funcionario();
 					endereco = new Endereco();
 					atualizarLista();
-					gravar = true;
 					idFilial = 0L; 
 			 }
 		 }
@@ -126,7 +124,6 @@ public class FuncionarioBean {
 		funcionario = f;
 		idFilial = f.getFilial().getId();
 		endereco = f.getEndereco();
-	    gravar = false;
 	 }
 
 	public void excluirFuncionario(Funcionario f) {
@@ -189,14 +186,6 @@ public class FuncionarioBean {
 		this.funcionarios = funcionarios;
 	}
 
-	public Boolean getGravar() {
-		return gravar;
-	}
-
-	public void setGravar(Boolean gravar) {
-		this.gravar = gravar;
-	}
-  
 	public String getTexto() {
 		return texto;
 	}

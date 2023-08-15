@@ -35,8 +35,6 @@ public class FilialBean {
 	private Endereco endereco = new Endereco();
 	private List<Filial> filiais = new ArrayList<Filial>();
 	
-	
-	private Boolean gravar = true; 
 	private String texto;
 	private Long totalFuncionarios;
 
@@ -80,7 +78,7 @@ public class FilialBean {
 	    filial = new Filial();
 	    endereco = new Endereco();
 	    atualizarLista();
-	    gravar = true;
+
 	  
 	}else {
 		endereco = enderecoService.mergeEndereco(endereco);
@@ -91,7 +89,6 @@ public class FilialBean {
 		filial= new Filial();
 		endereco = new Endereco();
 		atualizarLista();
-		gravar = true;
 	}
 }
   
@@ -100,7 +97,6 @@ public class FilialBean {
 	public void carregarFilial(Filial f) {
 		filial = f;
 		endereco = f.getEndereco();
-		gravar = false;
 	}
 	 	
 	public static String formatarCNPJ(String cnpj) {
@@ -131,14 +127,6 @@ public class FilialBean {
 
 	public void setFiliais(List<Filial> filiais) {
 		this.filiais = filiais;
-	}
-
-	public Boolean getGravar() {
-		return gravar;
-	}
-
-	public void setGravar(Boolean gravar) {
-		this.gravar = gravar;
 	}
 
 	public String getTexto() {
