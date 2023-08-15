@@ -81,6 +81,8 @@ public class FuncionarioBean {
                 addMessage("msg1", new FacesMessage("Selecione o cargo do funcionário."));
 			 return;
 		 }else {
+			 
+			 if(funcionario.getId()==null) {
 			// o metodo merge foi utilizado para deixar o objeto gerenciado novamente
 			    endereco = enderecoService.mergeEndereco(endereco);
 			    funcionario.setEndereco(endereco);
@@ -96,29 +98,29 @@ public class FuncionarioBean {
 			    endereco = new Endereco();
 			    atualizarLista();
 			    idFilial = 0L;
+			 }else {
+				// Verificar se houve tentativa de alterar a filial
+				    if (!funcionario.getFilial().getId().equals(idFilial)) {
+				    	FacesContext.getCurrentInstance().
+						addMessage("msg1", new FacesMessage("Aviso!!! "
+								+ "Não é permitido alterar a filial do funcionário."));
+				        return;
+				    }
+				    
+					endereco = enderecoService.mergeEndereco(endereco);
+					
+					funcionarioService.merge(funcionario);
+					FacesContext.getCurrentInstance().
+					addMessage("msg1", new FacesMessage("Funcionario atualizado com Sucesso!"));
+					funcionario = new Funcionario();
+					endereco = new Endereco();
+					atualizarLista();
+					gravar = true;
+					idFilial = 0L; 
+			 }
 		 }
 	}
 	
-	public void atualizar() {
-		// Verificar se houve tentativa de alterar a filial
-	    if (!funcionario.getFilial().getId().equals(idFilial)) {
-	    	FacesContext.getCurrentInstance().
-			addMessage("msg1", new FacesMessage("Aviso!!! "
-					+ "Não é permitido alterar a filial do funcionário."));
-	        return;
-	    }
-	    
-		endereco = enderecoService.mergeEndereco(endereco);
-		
-		funcionarioService.merge(funcionario);
-		FacesContext.getCurrentInstance().
-		addMessage("msg1", new FacesMessage("Funcionario atualizado com Sucesso!"));
-		funcionario = new Funcionario();
-		endereco = new Endereco();
-		atualizarLista();
-		gravar = true;
-		idFilial = 0L;
-	}
 	
 	public void carregarFuncionario(Funcionario f) {
 		funcionario = f;

@@ -83,7 +83,7 @@ public class FilialBean {
 	    gravar = true;
 	  
 	}else {
-	endereco = enderecoService.mergeEndereco(endereco);
+		endereco = enderecoService.mergeEndereco(endereco);
 		
 		filialService.merge(filial);
 		FacesContext.getCurrentInstance().
